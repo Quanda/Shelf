@@ -32,7 +32,7 @@ describe('Shelf', function() {
   // test strategy:
   //   1. make request to `/`
   //   2. confirm 200 status code and html
-  it('should return HTML page', function() {
+  it('should return home page', function() {
     // for Mocha tests, when we're dealing with asynchronous operations,
     // we must either return a Promise object or else call a `done` callback
     // at the end of the test. The `chai.request(server).get...` call is asynchronous
