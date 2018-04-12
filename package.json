@@ -1,0 +1,25 @@
+{
+  "name": "shelf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha --exit",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quanda/Shelf.git"
+  },
+  "author": "Quanda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quanda/Shelf/issues"
+  },
+  "homepage": "https://github.com/Quanda/Shelf#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.0.5"
+  }
+}
