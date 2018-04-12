@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy: 
+  provider: heroku
+  api_key:
+    secure: TZT5gXYgn+/U1ocntwggkIVcueIKwHhtzRKWHVuaVicI59sxBspCMB6UZSe6EFtUvpucjC6y6IgOxOssWay30JLdFnKpM7SdOVtjgE19KtSpmsmF4t7Yha90L4nb0zIZ6sQ/TWd4eVDzFxkyW8iJ1faOqROz3M7txTcZwZoOsLzrjYZM1rZQwA8j3ZLXT29hMV6wJAqw1TJMW8XpXAIkh8gRPtJJhuRn+ZoEwhLbP8OwFk6ny2UdxbtgBIG/UTcr7dRUgKvLO/DXk1/P7PSFzVYuWfWmS5nOJX/sTsexDSo8ezU1yUTFlkHqwe0rE04VRcpKm5Mfx/2iwR6XdD4TLpdtZITPDWB8pJ+znrw/IzAZduttY2MHZ+AmAZ3yEAPPc43IoKkT7WCld0lnwrKlZTwHUYzt1i8s2Q7DwriXdPe8hwpb2MyazlbJsL+GqeFYj5KM+Jll7yTRC/TBlgUkyno8uK46dsUt2lWB8wOo4IN5f/vr4zHI9XANwG1kAZHiv4kiT7QAge9VlywXgUN1xi+Svhx/dTKbrjxR7XOD4CrjF6MN6Qt58WBcTxFgWBE9ANHRjnuK5Iy6humlPdqhQQOAUfWbkxywRpk0/gjGWkqNgKfq8o6TZ5X14UM/kjTrDw6DyS1jtx3uxBVOp891OhpMmDlrTBH1OLqzqe3WWFk=
+  app: desolate-forest-17713
+  on:
+    repo: Quanda/Shelf
