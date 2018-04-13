@@ -5,7 +5,8 @@ const express = require('express');
 const app = express();
 
 // serve static assets from public folder
-app.use(express.static('views'));
+app.use(express.static('public/views'));
+app.use(express.static('public/js'));
 
 
 // both runServer and closeServer need to access the same

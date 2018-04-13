@@ -1,7 +1,7 @@
 {
   "name": "shelf",
   "version": "1.0.0",
-  "description": "",
+  "description": "thinkful capstone",
   "main": "server.js",
   "scripts": {
     "test": "mocha --exit",
