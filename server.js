@@ -9,6 +9,7 @@ app.use(express.static('public/views'));
 app.use(express.static('public/js'));
 
 
+
 // both runServer and closeServer need to access the same
 // server object, so we declare `server` here, and then when
 // runServer runs, it assigns a value.
