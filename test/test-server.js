@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const {app, runServer, closeServer} = require('../server');
+const {app, runServer, closeServer} = require('../js/server');
 
 // this lets us use *expect* style syntax in our tests
 // so we can do things like `expect(1 + 1).to.equal(2);`
@@ -29,16 +29,27 @@ describe('Shelf', function() {
     return closeServer();
   });
 
-  // test strategy:
-  //   1. make request to `/`
-  //   2. confirm 200 status code and html
   it('should return home page', function() {
-    // for Mocha tests, when we're dealing with asynchronous operations,
-    // we must either return a Promise object or else call a `done` callback
-    // at the end of the test. The `chai.request(server).get...` call is asynchronous
-    // and returns a Promise, so we just return it.
     return chai.request(app)
       .get('/')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.html;
+      });
+  });
+    
+  it('should return login page', function() {
+    return chai.request(app)
+      .get('/login.html')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.html;
+      });
+  });
+    
+  it('should return signup page', function() {
+    return chai.request(app)
+      .get('/signup.html')
       .then(function(res) {
         expect(res).to.have.status(200);
         expect(res).to.be.html;
