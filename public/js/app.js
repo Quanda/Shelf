@@ -1,4 +1,4 @@
-console.log('running app.js')
+console.log('running app.js');
 
 const MOCK_BOOKS = {
     "books": [
@@ -45,15 +45,60 @@ const MOCK_BOOKS = {
     ]
 };
 
+//handle add book button click
+// display modal
+$('#add-book-btn').on('click', function() {
+    $('.add-book-background').removeClass('hidden');
+    $('.add-book-dialog').removeClass('hidden');
+})
+
+// handle escaping add book
+// hide modal
+$('.add-book-background, #close-add-book-btn').on('click', function() {
+    $('.add-book-background').addClass('hidden');
+    $('.add-book-dialog').addClass('hidden');
+})
+// handle searching all volumes
+$('.add-book-form').on('submit', function(event) {
+    event.preventDefault();
+    const SEARCH_STRING = $('#book-search').val();
+    console.log(SEARCH_STRING);
+    $('.book-searchresults-accordion').children().remove();
+    searchAllVolumes(SEARCH_STRING, renderBookResults)
+})
+
+let renderBookResults = function(bookResults) {    
+    bookResults.items.forEach( (book) => {
+        let author;
+        if(typeof book.volumeInfo.authors != 'undefined') {
+            author = book.volumeInfo.authors[0]
+        } else {
+            author = 'No author listed'
+        }
+        let bookResultItem = `
+            <li>
+                <a class="toggle" href="javascript:void(0);">${book.volumeInfo.title} - ${author}</a>
+                <div class="book inner">
+                    <a class="book-searchresult-backout" href="#">Back</a>
+                    <h2>${book.volumeInfo.title}</h2>
+                </div>
+            </li>`
+        $('.book-searchresults-accordion').append(bookResultItem);
+    })
+    $('.book.inner').removeClass('show').slideUp(350);
+}
+
 function getAllBooks(callbackFn) {
     setTimeout(function(){ callbackFn(MOCK_BOOKS)}, 100);
+    
+    // ajax call to API to get books
 }
 
 // this function stays the same when we connect
 // to real API later
 function displayAllBooks(data) {
     for (index in data.books) {
-       $('body').append(
+       $('.user-books').append(
         '<p>' + data.books[index].title + '</p>');
     }
 }

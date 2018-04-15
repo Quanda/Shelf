@@ -4,13 +4,50 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
+    <link type="text/css" rel="stylesheet" href="./main.css">
     <title></title>
 </head>
 <body>
     
-    <p>Shelf home page - displays after user logs in</p>
+<div class="wrapper">
+    
+<div class="add-book-background hidden"></div>
+<div class="add-book-dialog hidden">
+    <h2>Find a Book</h2>
+    <form action="#" class="add-book-form" name="add-book-form">
+        <label for="book-search" class="input-label">
+            <input type="text" id="book-search" name="book-search" placeholder="Search books">
+        </label>            
+        <button type="submit">Search</button>
+    </form>
+    <button id="close-add-book-btn">Close</button>
+    
+    <section class="book-searchresults-container" aria-live="assertive">
+        <ul class="book-searchresults-accordion">
+        </ul>
+    </section>
+</div>
+    
+    <header role="banner">
+        <h1>Shelf</h1>
+    </header>
+    
+    <main role="main">
+        <label for="add-book-btn" class="input-label">
+            <input type="button" id="add-book-btn" name="add-book-btn" value="Add a book">
+        </label>
+        <div class="user-books">
+        </div>
+    </main>
+    
+    <footer>
+    </footer>
+    
+</div>
+
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="application/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="./google-books-search.js"></script>
+<script type="text/javascript" src="./app.js"></script>
 </body>
 </html>

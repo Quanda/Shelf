@@ -7,6 +7,7 @@ const app = express();
 // serve static assets from public folder
 app.use(express.static('public/views'));
 app.use(express.static('public/js'));
+app.use(express.static('public/styles'));
 
 
 
