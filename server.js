@@ -1,7 +1,13 @@
+// load express
 const express = require('express');
+
+// create app
 const app = express();
 
-app.use(express.static('public'));
+// serve static assets from public folder
+app.use(express.static('public/views'));
+app.use(express.static('public/js'));
+app.use(express.static('public/styles'));
 
 
 
@@ -45,5 +51,6 @@ function closeServer() {
 if (require.main === module) {
   runServer().catch(err => console.error(err));
 };
+
 
 module.exports = {app, runServer, closeServer};

@@ -1,0 +1,52 @@
+.wrapper {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.add-book-background {
+    background-color: #000000bd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.add-book-dialog {
+    width: 75%;
+    position: fixed;
+    top: 10%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    margin: auto;
+    z-index: 3;
+    text-align: center;
+}
+
+#close-add-book-btn {
+    position: absolute;
+    bottom: 10px;
+}
+
+.book-searchresult-backout {
+    padding-top: 15px;
+}
+
+.book-searchresults-container {
+    margin: 25px 0px 50px 0px;
+}
+
+.book-searchresults-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.book-searchresults-container li {
+    margin:10px;
+}
