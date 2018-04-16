@@ -78,7 +78,7 @@ $('.add-book-form').on('submit', function(event) {
 
 // renders all books returned from query in accordion
 let renderAllVolumes = function(bookResults) {   
-    bookResults.items.forEach( (book) => {
+    bookResults.forEach( (book) => {
 
         let author = book.volumeInfo.authors[0];
         let description = book.volumeInfo.description;
