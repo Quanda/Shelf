@@ -29,6 +29,11 @@
     text-align: center;
 }
 
+#close-add-book-btn {
+    position: absolute;
+    bottom: 10px;
+}
+
 .book-searchresult-backout {
     padding-top: 15px;
 }
@@ -43,5 +48,5 @@
 }
 
 .book-searchresults-container li {
-    margin: .2em 0;
+    margin:10px;
 }
