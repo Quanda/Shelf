@@ -100,7 +100,7 @@ let renderAllVolumes = function(bookResults) {
 // gets bookId, looks up book, calls addToShelf fn, rerender shelf
 $('.book-searchresults-accordion').on('click', '.add-to-shelf-btn', function() {
     let selectedBookId = $(this).siblings('h2').attr('id');
-    searchSingleVolume(selectedBookId, addToShelf)
+    searchSingleVolume(selectedBookId, addToShelf);
     getAndDisplayBooks();
 })
 

@@ -11,7 +11,7 @@ function searchAllVolumes(searchString, callback) {
     .done(function( data ) {
         // filter only books that have an author and description
         let volumes = data.items.filter( volume => {
-            return volume.volumeInfo.authors.length > 0 && typeof volume.volumeInfo.description != 'undefined'
+            return volume.volumeInfo.authors.length > 0 && typeof volume.volumeInfo.description != 'undefined';
         })
         console.log(volumes);
         callback(data);
