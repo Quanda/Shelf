@@ -1,14 +1,18 @@
 // load express
 const express = require('express');
+const mongoose = require('mongoose');
+
+// reveal config vars
+const { PORT, DATABASE_URL } = require('./config');
 
 // create app
 const app = express();
+
 
 // serve static assets from public folder
 app.use(express.static('public/views'));
 app.use(express.static('public/js'));
 app.use(express.static('public/styles'));
-
 
 
 // both runServer and closeServer need to access the same
@@ -18,13 +22,18 @@ let server;
 
 // this function starts our server and returns a Promise.
 function runServer() {
-  const port = process.env.PORT || 8080;
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`Your app is listening on port ${port}`);
-      resolve(server);
+    mongoose.connect(DATABASE_URL, err => {
+        if(err) {
+            return reject(err);
+        }
+    })
+    server = app.listen(PORT, () => {
+      console.log(`Your app is listening on port ${PORT}`);
+      resolve();
     }).on('error', err => {
-      reject(err)
+      mongoose.disconnect();
+      reject(err);
     });
   });
 }
@@ -33,16 +42,16 @@ function runServer() {
 // `server.close` does not return a promise on its own, so we manually
 // create one.
 function closeServer() {
-  return new Promise((resolve, reject) => {
-    console.log('Closing server');
-    server.close(err => {
-      if (err) {
-        reject(err);
-        // so we don't also call `resolve()`
-        return;
-      }
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          reject(err);
+        }
       resolve();
-    });
+      });
+    });   
   });
 }
 
