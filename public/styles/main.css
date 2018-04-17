@@ -1,7 +1,27 @@
-/* * {
+* {
     box-sizing: border-box;
     margin: 0;
-} */
+} 
+html {
+    font-family: "Helvetica Neue","Helvetica","Arial","sans-serif";
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+header, h1, h2 {
+    color: #23405B;
+}
+header h1 {
+    font-size: 58px;
+    font-weight: 300;
+    margin: 20px auto 10px auto;
+}
+header p {
+    font-size: 30px;
+    font-weight: 300;
+}
 .wrapper {
     text-align: center;
 }
@@ -31,6 +51,7 @@
     z-index: 3;
     text-align: center;
     border: 2px solid black;
+    min-height: 250px;
 }
 
 .book-result-dialog {
