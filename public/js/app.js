@@ -78,16 +78,20 @@ $('.add-book-form').on('submit', function(event) {
 
 // renders all books returned from query in accordion
 let renderAllVolumes = function(bookResults) {   
+    console.log(bookResults);
     bookResults.forEach( (book) => {
 
         let author = book.volumeInfo.authors[0];
         let description = book.volumeInfo.description;
+        let imageLink = book.volumeInfo.imageLinks.smallThumbnail;
+    
         let bookResultItem = `
             <li>
                 <a class="toggle" href="javascript:void(0);">${book.volumeInfo.title} - ${author}</a>
                 <div class="book inner">
                     <h2 id="${book.id}">${book.volumeInfo.title}</h2>
                     <h5>by ${author}</h5>
+                    <img src="${imageLink}" alt="book image"/>
                     <p>${description}</p>
                     <button class="add-to-shelf-btn">Add to Shelf</button>
                 </div>
@@ -107,10 +111,14 @@ $('.book-searchresults-accordion').on('click', '.add-to-shelf-btn', function() {
 // builds book object, calls api to create new book
 function addToShelf(book) {
     console.log(book)
+    let isbn_index = 0;
+    if(book.volumeInfo.industryIdentifiers.length > 1) {
+        isbn_index = 1;
+    }
     let bookObj = {
         "title": book.volumeInfo.title,
         "author": book.volumeInfo.authors[0] || 'No author listed',
-        "isbn": book.volumeInfo.industryIdentifiers[0].identifier,
+        "isbn": book.volumeInfo.industryIdentifiers[isbn_index].identifier,
         "description": book.volumeInfo.description || 'No description listed',
         "book_added": Date.now(),
         "book_modified": Date.now(),
@@ -124,13 +132,12 @@ function addToShelf(book) {
 }
 
 function getAllBooks(callbackFn) {
-    setTimeout(function(){ callbackFn(MOCK_BOOKS)}, 100);
+    setTimeout(function(){ callbackFn(MOCK_BOOKS)}, 3000);
     
     // ajax call to API to get books
 }
 
-// this function stays the same when we connect
-// to real API later
+// render the books in the view
 function displayAllBooks(data) {
     for (index in data.books) {
        $('.user-books').append(
@@ -138,7 +145,7 @@ function displayAllBooks(data) {
     }
 }
 
-// empty shelf and retrieve latest books
+// empty shelf view and populate with latest books
 function getAndDisplayBooks() {
     $('.user-books').children().remove();
     getAllBooks(displayAllBooks);
