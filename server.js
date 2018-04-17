@@ -13,6 +13,7 @@ const app = express();
 app.use(express.static('public/views'));
 app.use(express.static('public/js'));
 app.use(express.static('public/styles'));
+app.use(express.static('public/images'));
 
 
 // both runServer and closeServer need to access the same

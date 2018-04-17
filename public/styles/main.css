@@ -1,3 +1,7 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+} */
 .wrapper {
     text-align: center;
 }
@@ -19,34 +23,48 @@
 
 .add-book-dialog {
     width: 75%;
-    position: fixed;
-    top: 10%;
+    position: absolute;
     left: 0;
     right: 0;
     background-color: white;
     margin: auto;
     z-index: 3;
     text-align: center;
+    border: 2px solid black;
+}
+
+.book-result-dialog {
+    width: 55%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: white;
+    margin: auto;
+    z-index: 3;
+    text-align: center;
+    top: 20%;
+    min-height: 750px;
+    border: 2px solid black;
+}
+.book-result-close, .add-book-close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.add-book-form {
+    margin: 25px;
 }
 
 #close-add-book-btn {
-    position: absolute;
-    bottom: 10px;
+    margin: 10px;
 }
 
 .book-searchresult-backout {
     padding-top: 15px;
 }
 
-.book-searchresults-container {
-    margin: 25px 0px 50px 0px;
+.result {
+    border: 2px solid #eee;
+    padding: 20px;
 }
 
-.book-searchresults-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.book-searchresults-container li {
-    margin:10px;
-}
