@@ -120,10 +120,6 @@ let renderAllVolumes = function(bookResults) {
                 <img src="${imageLink}" alt="book image"/>
                 <p> ${book.volumeInfo.title}</p>
                 <h5>by ${author}</h5>
-                <!--
-                <p>${description}</p>
-                <button class="add-to-shelf-btn">Add to Shelf</button>
-                -->
             </div>`
         $('.book-searchresults').append(bookResultItem);
     })
