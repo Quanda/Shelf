@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
+    <link type="text/css" rel="stylesheet" href="./grid.css">
     <link type="text/css" rel="stylesheet" href="./main.css">
     <title></title>
 </head>
@@ -13,21 +14,20 @@
     
 <div class="add-book-background hidden"></div>
 <div class="add-book-dialog hidden">
+    <button type="button" class="add-book-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h2>Add to shelf</h2>
     <form action="#" class="add-book-form" name="add-book-form">
         <label for="book-search" class="input-label">
             <input type="text" id="book-search" name="book-search" placeholder="search books...">
         </label>            
         <button type="submit">Find</button>
-    </form>
-    <button id="close-add-book-btn">Close</button>
-    
-    <section class="book-searchresults-container" aria-live="assertive">
-        <ul class="book-searchresults-accordion">
-        </ul>
-    </section>
+    </form>    
+    <div class="book-searchresults grid">
+    </div>
 </div>
-    
+<div class="book-result-dialog hidden">
+</div>
+
     <header role="banner">
         <h1>Shelf</h1>
     </header>
