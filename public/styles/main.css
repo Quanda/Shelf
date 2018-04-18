@@ -30,6 +30,10 @@ header p {
     display: none;
 }
 
+.user-books {
+    margin-top: 50px;
+}
+
 .add-book-background {
     background-color: #000000bd;
     position: fixed;
@@ -42,7 +46,7 @@ header p {
 }
 
 .add-book-dialog {
-    width: 75%;
+    width: 85%;
     position: absolute;
     left: 0;
     right: 0;
@@ -55,29 +59,21 @@ header p {
 }
 
 .book-result-dialog {
-    width: 55%;
-    position: absolute;
+    width:70%;
+    position: fixed;
     left: 0;
     right: 0;
     background-color: white;
     margin: auto;
     z-index: 3;
     text-align: center;
-    top: 20%;
+    top: 5%;
     min-height: 750px;
     border: 2px solid black;
 }
-.book-result-close, .add-book-close {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
+
 .add-book-form {
     margin: 25px;
-}
-
-#close-add-book-btn {
-    margin: 10px;
 }
 
 .book-searchresult-backout {
@@ -89,3 +85,19 @@ header p {
     padding: 20px;
 }
 
+
+
+
+
+/* CLOSE BUTTON */
+.close-btn {
+  font: 30px/100% arial, sans-serif;
+  position: absolute;
+  right: 10px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+.close-btn:after {
+  content: 'X'; /* ANSI X letter */
+}
