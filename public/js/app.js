@@ -70,27 +70,25 @@ $('.add-book-dialog').on('click', '.close-btn', function() {
     $('.add-book-background').addClass('hidden');
     $('.add-book-dialog').addClass('hidden');
     $('.book-result-dialog').html('').addClass('hidden');
-    getAndDisplayBooks();
 });
 $('.book-result-dialog').on('click', '.close-btn', function() {
     console.log('closing book result');
     $('.book-result-dialog').addClass('hidden');
-    $('.selected-book img').remove();
+    $('.selected-volume img').remove();
 });
 // user submits search for book
-// get book results from google api and call renderAllVolumes fn
+// get book results from google api and call renderVolumes fn
 $('.add-book-form').on('submit', function(event) {
     event.preventDefault();
     const SEARCH_STRING = $('#book-search').val();
-    $('.book-searchresults').children().remove();
-    searchAllVolumes(SEARCH_STRING, renderAllVolumes)
+    $('.volume-searchresults').children().remove();
+    searchAllVolumes(SEARCH_STRING, renderVolumes)
 });
-$('.book-searchresults').on('click', '.result', function() {
+$('.volume-searchresults').on('click', '.result', function() {
     let selectedBookId = $(this).attr('id');
     console.log(`clicked book ${selectedBookId}`);
-    $('.book-result-background').removeClass('hidden');
     $('.book-result-dialog').removeClass('hidden');
-    searchSingleVolume(selectedBookId, renderSingleVolume)
+    searchSingleVolume(selectedBookId, renderVolume)
 });
 // gets bookId, looks up book, calls addToShelf fn
 $('.book-result-dialog').on('click', '.add-to-shelf-btn', function() {
@@ -105,71 +103,75 @@ $('.book-result-dialog').on('click', '.book-result-close', function() {
     $('.book-result-dialog').html('');
     $('.book-result-dialog').addClass('hidden');
 });
-
+// render user book
 $('.user-books').on('click', '.result', function() {
     const selectedBookId = $(this).attr('id');
     const userBook = MOCK_BOOKS.books.find( x => x.id === selectedBookId);
     console.log(userBook);
+    $('.book-result-dialog').removeClass('hidden');
+    renderBook(userBook);
 })
+
+
 // RENDERING FUNCTIONS
 
-// renders all books returned from query in accordion
-let renderAllVolumes = function(bookResults) {   
-    console.log(bookResults);
-    bookResults.forEach( (book) => {
+// renders all volumes returned from google query
+let renderVolumes = function(volumeResults) {   
+    console.log(volumeResults);
+    volumeResults.forEach( (volume) => {
 
-        let author = book.volumeInfo.authors[0];
-        let description = book.volumeInfo.description;
+        let author = volume.volumeInfo.authors[0];
+        let description = volume.volumeInfo.description;
         let imageLink;
-        if(typeof book.volumeInfo.imageLinks != 'undefined') {
-            if(typeof book.volumeInfo.imageLinks.smallThumbnail != 'undefined') {
-                imageLink = book.volumeInfo.imageLinks.smallThumbnail;
-            } else if (typeof book.volumeInfo.imageLinks.thumbnail != 'undefined') {
-                imageLink = book.volumeInfo.imageLinks.thumbnail;
+        if(typeof volume.volumeInfo.imageLinks != 'undefined') {
+            if(typeof volume.volumeInfo.imageLinks.smallThumbnail != 'undefined') {
+                imageLink = volume.volumeInfo.imageLinks.smallThumbnail;
+            } else if (typeof volume.volumeInfo.imageLinks.thumbnail != 'undefined') {
+                imageLink = volume.volumeInfo.imageLinks.thumbnail;
             }
         } else {
             imageLink = "./defaultBook.png" // SET TO DEFAULT IMAGE 
         }
     
-        let bookResultItem = `
-            <div class="result" id="${book.id}">
+        let volumeHtml = `
+            <div class="result" id="${volume.id}">
                 <img src="${imageLink}" alt="book image"/>
-                <p> ${book.volumeInfo.title}</p>
+                <p> ${volume.volumeInfo.title}</p>
                 <h5>by ${author}</h5>
             </div>`
-        $('.book-searchresults').append(bookResultItem);
+        $('.volume-searchresults').append(volumeHtml);
     })
 }
-
-function renderSingleVolume(book) {
-    console.log(book);
-    let author = book.volumeInfo.authors[0];
-    let description = book.volumeInfo.description;
+// render the view for a single volume
+function renderVolume(volume) {
+    console.log(volume);
+    let author = volume.volumeInfo.authors[0];
+    let description = volume.volumeInfo.description;
     let imageLink;
-    if(typeof book.volumeInfo.imageLinks != 'undefined') {
-        if(typeof book.volumeInfo.imageLinks.smallThumbnail != 'undefined') {
-            imageLink = book.volumeInfo.imageLinks.smallThumbnail;
-        } else if (typeof book.volumeInfo.imageLinks.thumbnail != 'undefined') {
-            imageLink = book.volumeInfo.imageLinks.thumbnail;
+    if(typeof volume.volumeInfo.imageLinks != 'undefined') {
+        if(typeof volume.volumeInfo.imageLinks.smallThumbnail != 'undefined') {
+            imageLink = volume.volumeInfo.imageLinks.smallThumbnail;
+        } else if (typeof volume.volumeInfo.imageLinks.thumbnail != 'undefined') {
+            imageLink = volume.volumeInfo.imageLinks.thumbnail;
         }
     } else {
         imageLink = "./defaultBook.png" // SET TO DEFAULT IMAGE 
     }
-    let bookResultItem = `
-    <div class="selected-book" id="${book.id}">
+    let volumeHtml = `
+    <div class="selected-volume" id="${volume.id}">
         <a class="close-btn"></a>
-        <img src="${imageLink}" alt="book image"/>
-        <p> ${book.volumeInfo.title}</p>
+        <img src="${imageLink}" alt="volume image"/>
+        <p> ${volume.volumeInfo.title}</p>
         <h5>by ${author}</h5>
         <p>${description}</p>
         <button class="add-to-shelf-btn">Add to Shelf</button>
         <button class="view-books-btn">View books</button>
     </div>`
-    $('.book-result-dialog').html(bookResultItem);
+    $('.book-result-dialog').html(volumeHtml);
 }
 
 // render the users books in the view
-function renderUserBooks(data) {
+function renderBooks(data) {
     data.books.forEach( (book) => {
         console.log(book.image_link);
         let userBook = 
@@ -181,6 +183,19 @@ function renderUserBooks(data) {
         
         $('.user-books').append(userBook);
     })
+}
+
+function renderBook(book) {
+    let bookHtml = `
+    <div class="user-book" id="${book.id}">
+        <a class="close-btn"></a>
+        <img src="${book.image_link}" alt="volume image"/>
+        <p> ${book.title}</p>
+        <h5>by ${book.author}</h5>
+        <p>${book.description}</p>
+    </div>`
+    $('.book-result-dialog').html('');
+    $('.book-result-dialog').html(bookHtml);
 }
 
 // builds book object, calls api to create new book
@@ -200,6 +215,7 @@ function addToShelf(book) {
         imageLink = "./defaultBook.png" // SET TO DEFAULT IMAGE 
     }
     let bookObj = {
+        "id": "",
         "title": book.volumeInfo.title,
         "author": book.volumeInfo.authors[0],
         "isbn": book.volumeInfo.industryIdentifiers[isbn_index].identifier,
@@ -216,16 +232,19 @@ function addToShelf(book) {
     console.log(MOCK_BOOKS.books);
 }
 
+
+// API CALLS
 function getAllBooks(callbackFn) {
     setTimeout(function(){ callbackFn(MOCK_BOOKS)}, 1000);
     
     // ajax call to API to get books
+    
 }
 
 // empty shelf view and populate with latest books
 function getAndDisplayBooks() {
     $('.user-books').children().remove();
-    getAllBooks(renderUserBooks);
+    getAllBooks(renderBooks);
     $('.add-book-background').addClass('hidden');
     $('.add-book-dialog').addClass('hidden');
     $('.book-result-dialog').addClass('hidden');
