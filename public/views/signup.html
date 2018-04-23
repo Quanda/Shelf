@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #eee">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
     <link type="text/css" rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <title></title>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper jumbotron">
 
         <header role="banner">
             <h1>Signup</h1>
@@ -17,21 +18,17 @@
         <main role="main">
             <form action="#" class="login-form" name="login-form">
                 <label for="fullname" class="input-label">
-                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" autocomplete="Name"><br>
-                </label>
-                <label for="email" class="input-label">
-                    <input type="text" id="email" name="email" placeholder="Email"  autocomplete="Email"><br>
-                </label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" autocomplete="Name">
+                </label><br>
+                <label for="username" class="input-label">
+                    <input type="text" id="username" name="username" placeholder="Username">
+                </label><br>
                 <label for="password" class="input-label">
-                    <input type="text" id="password" name="password" placeholder="Password"><br><br>
-                </label>
-
-                <button type="submit">Submit</button>
+                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password>"><br><br>
+                </label><br>
+                <button type="submit" class="btn btn-warning btn-lg">Submit</button>
             </form>
         </main>
-
-        <footer>
-        </footer>
     </div>
 </body>
 </html>

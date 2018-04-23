@@ -1,6 +1,6 @@
 // invoke functions
 $(function() {
-    getAndDisplayBooks();
+    displayBooks();
 })
 
 const MOCK_BOOKS = {
@@ -113,6 +113,25 @@ $('.user-books').on('click', '.result', function() {
 })
 
 
+$('#login').submit(function(event) {
+    event.preventDefault();
+    
+    // ensure username and password are supplied 
+    
+    // get and set jwt to sessionStorage
+    authenticateUser();
+})
+
+
+$('.view-shelf-btn').on('click', function() {
+    console.log('clicked view shelf');    
+    
+    // request books and redirect to home.html
+    getAndDisplayBooks();
+})
+
+
+
 // RENDERING FUNCTIONS
 
 // renders all volumes returned from google query
@@ -164,8 +183,8 @@ function renderVolume(volume) {
         <p> ${volume.volumeInfo.title}</p>
         <h5>by ${author}</h5>
         <p>${description}</p>
-        <button class="add-to-shelf-btn">Add to Shelf</button>
-        <button class="view-books-btn">View books</button>
+        <button class="add-to-shelf-btn btn btn-primary btn-md">Add to Shelf</button>
+        <button class="view-books-btn btn btn-primary btn-md">View books</button>
     </div>`
     $('.book-result-dialog').html(volumeHtml);
 }
@@ -235,17 +254,55 @@ function addToShelf(book) {
 
 // API CALLS
 function getAllBooks(callbackFn) {
-    setTimeout(function(){ callbackFn(MOCK_BOOKS)}, 1000);
+    //setTimeout(function(){ callbackFn(MOCK_BOOKS)}, 1000);
     
-    // ajax call to API to get books
-    
+    // ajax call to API to get books 
+}
+
+function authenticateUser() {
+    $.ajax({
+       url: '/api/auth/login',
+       type: 'POST',
+       data: {username: $('#username').val(), password: $('#password').val()},
+       dataType: 'JSON'
+    })
+    .done(function( data ) {
+        $('.auth-warning').removeClass('warning-on').text('');
+        sessionStorage.setItem('token', data.token);
+        $('.view-shelf-btn').removeClass('hidden');
+        $('.login-btn').addClass('hidden');
+        console.log('authenticated...');
+    })
+    .fail(function (err) {
+        console.error(err);
+        $('.view-shelf-btn').addClass('hidden');
+        $('.auth-warning').addClass('warning-on').text(err.responseText);
+    })
 }
 
 // empty shelf view and populate with latest books
 function getAndDisplayBooks() {
+    $.ajax({
+       url: '/api/users/books',
+       type: 'GET',
+       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')},
+       dataType: 'JSON'
+    })
+    .done(function( data ) {
+        console.log('retrieving books...')
+        console.log(data);
+        // display books homepage, pass data
+        // how to render homepage with user books from data
+        displayBooks(data);
+    })
+    .fail(function (err) {
+        console.error(err);
+    });
+}
+
+function displayBooks(data) {
     $('.user-books').children().remove();
-    getAllBooks(renderBooks);
     $('.add-book-background').addClass('hidden');
     $('.add-book-dialog').addClass('hidden');
-    $('.book-result-dialog').addClass('hidden');
+    $('.book-result-dialog').addClass('hidden'); 
 }

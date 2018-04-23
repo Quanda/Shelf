@@ -6,6 +6,10 @@ html {
     font-family: "Helvetica Neue","Helvetica","Arial","sans-serif";
 }
 
+body {
+    background-color: #eee !important;
+}
+
 header {
     margin-bottom: 30px;
 }
@@ -82,7 +86,12 @@ header p {
 }
 
 
-
+.warning-on {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+}
 
 
 /* CLOSE BUTTON */
