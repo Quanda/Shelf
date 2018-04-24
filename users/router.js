@@ -18,12 +18,18 @@ router.get('/books', jwtAuth, (req, res) => {
     //console.log(res);
     //return res.json({data: 'deh'})
     const username = req.user.username;
-    console.log(username);
     
-    return User.findOne({username}, function(err, books) {
+    // return users books
+    return User.findOne({username}, 'books', function(err, books) {
         if (err) console.error(err);
-        
+        console.log('finding books');
         console.log(books)
+        return res.json(books);
+        //return res.sendFile(path.join(__dirname + '/public/views/home.html'));
+    })
+    .then(function(){
+        console.log('ran this');
+        // 
     })
 });
 

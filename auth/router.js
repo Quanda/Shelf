@@ -28,7 +28,7 @@ router.post('/login', localAuth, (req, res) => {
   console.log('user trying to POST login');
   const authToken = createAuthToken(req.user.serialize());
    
-  res.json({token: authToken}); 
+  res.json({token: authToken});
 });
 
 

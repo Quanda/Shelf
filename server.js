@@ -48,7 +48,6 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Aint nothin here' });
 });
