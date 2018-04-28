@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const path = require('path');
 
 const {User} = require('./models');
 
@@ -11,7 +12,7 @@ const jsonParser = bodyParser.json();
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-
+// Get all books
 // A protected endpoint which needs a valid JWT to access it
 router.get('/books', jwtAuth, (req, res) => {
     //console.log(req.user);
@@ -22,21 +23,56 @@ router.get('/books', jwtAuth, (req, res) => {
     // return users books
     return User.findOne({username}, 'books', function(err, books) {
         if (err) console.error(err);
-        console.log('finding books');
+        console.log('returning books...');
         console.log(books)
         return res.json(books);
-        //return res.sendFile(path.join(__dirname + '/public/views/home.html'));
     })
-    .then(function(){
-        console.log('ran this');
-        // 
+});
+
+// Get a single book
+// A protected endpoint which needs a valid JWT to access it
+router.get('/books/:isbn', jwtAuth, (req, res) => {
+    const isbn = req.params.isbn;
+    const username = req.user.username;
+    
+    // return single user book
+    const book = User.findOne( { username },  {"books": { $elemMatch: { isbn }}} )
+    .then( function(data) {
+        console.log(data.books[0]);
+        res.json(data.books[0]);
     })
+    
+});
+
+// A protected endpoint which needs a valid JWT to access it
+// Add book to user shelf
+router.post('/books', jwtAuth, jsonParser, (req, res) => {
+    const username = req.user.username;
+    const newBook = req.body;
+    const isbn = req.body.isbn;
+    console.log(`isbn is ${isbn}`);
+
+      // create and return user book
+      return User.update( {username}, {$push: { 'books': newBook }} )
+        .then( function() {
+          return res.json(newBook);
+        })
+        .catch( err => {
+          return res.status(500).json({message: `Internal server error`})
+        });
+});
+
+// Delete a single book
+// A protected endpoint which needs a valid JWT to access it
+router.delete('/books/:isbn', jwtAuth, (req, res) => {
+    const isbn = req.params.isbn;
+    const username = req.user.username;
+    
+    // delete book from db
 });
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
-  console.log('someone trying to POST new user');
-  console.log(req);
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 

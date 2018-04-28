@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    margin-bottom: 30px;
+    margin-bottom: 0px !important;
 }
 
 header, h1, h2 {
@@ -38,6 +38,10 @@ header p {
     margin-top: 50px;
 }
 
+.mgmt-btn {
+    margin: 20px 20px 0px 0px;
+    float: right;
+}
 .add-book-background {
     background-color: #000000bd;
     position: fixed;
@@ -64,7 +68,7 @@ header p {
 
 .book-result-dialog {
     width:70%;
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     background-color: white;
@@ -92,7 +96,9 @@ header p {
     font-weight: bold;
     font-size: 22px;
 }
-
+.proceed-btn {
+    font-size: 28px !important;
+}
 
 /* CLOSE BUTTON */
 .close-btn {
@@ -105,4 +111,16 @@ header p {
 }
 .close-btn:after {
   content: 'X'; /* ANSI X letter */
+}
+
+
+
+@media screen and (max-width: 850px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-result-dialog {
+        min-height: 150px;
+    }
 }

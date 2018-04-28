@@ -14,11 +14,14 @@
 <body>
     
 <div class="wrapper">
-    
+<input type="button" id="logout-btn" name="logout-btn" value="Logout" class="mgmt-btn btn btn-danger btn-lg">
+<input type="button" id="refresh-token-btn" name="refresh-token-btn" value="Refresh token" class="mgmt-btn btn btn-success btn-lg">
+<input type="button" id="add-book-btn" name="add-book-btn" value="Add a book" class="mgmt-btn btn btn-primary btn-lg">  
+
 <div class="add-book-background hidden"></div>
 <div class="add-book-dialog hidden">
     <a class="close-btn"></a>
-    <h2>Add to shelf</h2>   
+    <h2>Add to Shelf</h2>   
     <form action="#" class="add-book-form" name="add-book-form">
         <label for="book-search" class="input-label">
             <input type="text" id="book-search" name="book-search" placeholder="search books...">
@@ -29,17 +32,16 @@
     </div>
 </div>
 <div class="book-result-dialog hidden">
+    
+    <p id="warningInfo"></p>
 </div>
 
     <header role="banner" class="jumbotron">
         <h1><span class="fa fa-book"></span> Shelf</h1> 
-        <p>Record your reads</p><br/>
+        <p>Record your reads</p>
     </header>
     
     <main role="main">
-        <label for="add-book-btn" class="input-label">
-            <input type="button" id="add-book-btn" name="add-book-btn" value="Add a book" class="btn btn-primary btn-lg">
-        </label>
         <div class="user-books grid">
         </div>
     </main>
@@ -49,6 +51,7 @@
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="./google-books-search.js"></script>
+<script type="text/javascript" src="./api-calls.js"></script>
 <script type="text/javascript" src="./app.js"></script>
 </body>
 </html>

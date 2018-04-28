@@ -22,6 +22,8 @@ const app = express();
 // logging
 app.use(morgan('common'));
 
+//app.set('view engine', 'ejs');
+
 // CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

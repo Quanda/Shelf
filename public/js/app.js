@@ -1,60 +1,9 @@
-// invoke functions
-$(function() {
-    //displayBooks();
-})
+$(function() { // on ready    
+    
+getUserBooks(updateSessionStorageWithBooks);
+    
+getBooksFromSessionStorage(renderBooks)
 
-const MOCK_BOOKS = {
-    "books": [
-        {
-            "id": "1111111",
-            "title": "mock book 1",
-            "author": "mock author 1",
-            "isbn": 1111111111,
-            "description": "mock desc 1",
-            "book_added": "2018-04-01",
-            "book_modified": "2018-04-02",
-            "rating_avg": 0,
-            "rating_user": 3,
-            "image_link": "./defaultBook.png"
-        },
-        {
-            "id": "2222222",
-            "title": "mock book 2",
-            "author": "mock author 2",
-            "isbn": 2222222222,
-            "description": "mock desc 2",
-            "book_added": "2018-04-02",
-            "book_modified": "2018-04-03",
-            "rating_avg": 1,
-            "rating_user": 1,
-            "image_link": "./defaultBook.png"
-        },
-        {
-            "id": "333333",
-            "title": "mock book 3",
-            "author": "mock author 3",
-            "isbn": 3333333333,
-            "description": "mock desc 3",
-            "book_added": "2018-04-03",
-            "book_modified": "2018-04-04",
-            "rating_avg": 2,
-            "rating_user": 4,
-            "image_link": "./defaultBook.png"
-        },
-        {
-            "id": "4444444",
-            "title": "mock book 4",
-            "author": "mock author 4",
-            "isbn": 444444444,
-            "description": "mock desc 4",
-            "book_added": "2018-04-04",
-            "book_modified": "2018-04-05",
-            "rating_avg": 3,
-            "rating_user": 2,
-            "image_link": "./defaultBook.png"
-        }
-    ]
-};
 
 // EVENT LISTENERS
 
@@ -90,47 +39,48 @@ $('.volume-searchresults').on('click', '.result', function() {
     $('.book-result-dialog').removeClass('hidden');
     searchSingleVolume(selectedBookId, renderVolume)
 });
+// Add book to shelf
 // gets bookId, looks up book, calls addToShelf fn
 $('.book-result-dialog').on('click', '.add-to-shelf-btn', function() {
     let selectedBookId = $(this).parent().attr('id');
-    console.log(selectedBookId);
+    
     searchSingleVolume(selectedBookId, addToShelf);
 });
 $('.book-result-dialog').on('click', '.view-books-btn', function() {
-    getUserBooks(renderBooksHome);
-    $('.users-books').append(`<p>dehhh</p>`)
+    getUserBooks(updateSessionStorageWithBooks);
+    window.location.href = '/home.html' //    window.location.replace("/home.html")
 });
+    
 $('.book-result-dialog').on('click', '.book-result-close', function() {
     $('.book-result-dialog').html('');
     $('.book-result-dialog').addClass('hidden');
 });
 // render user book
 $('.user-books').on('click', '.result', function() {
-    const selectedBookId = $(this).attr('id');
-    const userBook = MOCK_BOOKS.books.find( x => x.id === selectedBookId);
-    console.log(userBook);
+    const isbn = $(this).attr('id');
+    console.log(isbn);
+    
+    findBook(isbn, renderBook);
+    
     $('.book-result-dialog').removeClass('hidden');
-    renderBook(userBook);
 })
 
-
-$('#login').submit(function(event) {
-    event.preventDefault();
+// Log user out
+// Clear session storage and redirect to index
+$('#logout-btn').on('click', function() {
+    console.log('clicked logout btn');
     
-    // ensure username and password are supplied 
+    sessionStorage.clear();
     
-    // get and set jwt to sessionStorage
-    authenticateUser();
+    window.location.replace("/index.html")
 })
-
-
-$('.view-shelf-btn').on('click', function() {
-    console.log('clicked view shelf');    
+ 
+// Refresh auth token
+$('#refresh-token-btn').on('click', function() {
+    console.log('clicked refresh token btn');
     
-    // request books and redirect to home.html
-    getUserBooks(renderBooksHome);
+    getAuthToken(addAuthToken);
 })
-
 
 
 // RENDERING FUNCTIONS
@@ -190,14 +140,29 @@ function renderVolume(volume) {
     $('.book-result-dialog').html(volumeHtml);
 }
 
+
+function getBooksFromSessionStorage(callback) {
+    let USER_BOOKS = [];
+    for(let i = 0; i < sessionStorage.length; i++){
+        if(sessionStorage.key(i) != 'token') {
+            let key = sessionStorage.key(i);
+            console.log(`key: ${key}`);
+            let bookObj = sessionStorage.getItem(key);
+            USER_BOOKS.push(JSON.parse(bookObj));
+        }
+    }
+    callback(USER_BOOKS);
+}
+    
 // render the users books in the view
 function renderBooks(books) {
+    console.log('running renderBooks()')
     books.forEach( (book) => {
         let userBook = 
-        `<div class="result" id="${book.id}">
+        `<div class="result" id="${book.isbn}">
             <img src="${book.image_link}" alt="book image"/>
-            <p> ${book.title}</p>
-            <h5>by ${book.author}</h5>
+            <h5> ${book.title}</h5>
+            <p>${book.author}</p>
         </div>`
         
         $('.user-books').append(userBook);
@@ -205,13 +170,18 @@ function renderBooks(books) {
 }
 
 function renderBook(book) {
+    console.log(book);
     let bookHtml = `
-    <div class="user-book" id="${book.id}">
+    <div class="user-book" id="${book.isbn}">
         <a class="close-btn"></a>
         <img src="${book.image_link}" alt="volume image"/>
-        <p> ${book.title}</p>
-        <h5>by ${book.author}</h5>
+        <h2> ${book.title}</p>
+        <h5>${book.author}</h5>
         <p>${book.description}</p>
+        <p>ISBN: ${book.isbn}</p>
+        <p>Added: ${book.book_added}</p>
+        <p>Last modified ${book.book_modified}</p>
+        <p>Average Rating (out of 5): ${book.rating_avg}</p>
     </div>`
     $('.book-result-dialog').html('');
     $('.book-result-dialog').html(bookHtml);
@@ -219,6 +189,9 @@ function renderBook(book) {
 
 // builds book object, calls api to create new book
 function addToShelf(book) {
+    $('#successInfo').remove();
+    $('#warningInfo').remove();
+    
     let isbn_index = 0;
     if(book.volumeInfo.industryIdentifiers.length > 1) {
         isbn_index = 1;
@@ -234,98 +207,105 @@ function addToShelf(book) {
         imageLink = "./defaultBook.png" // SET TO DEFAULT IMAGE 
     }
     let bookObj = {
-        "id": "",
         "title": book.volumeInfo.title,
         "author": book.volumeInfo.authors[0],
         "isbn": book.volumeInfo.industryIdentifiers[isbn_index].identifier,
         "description": book.volumeInfo.description,
         "book_added": Date.now(),
         "book_modified": Date.now(),
-        "rating_avg": book.volumeInfo.averageRating || 'None',
+        "rating_avg": book.volumeInfo.averageRating || 0,
         "rating_user": 0,
         "image_link": imageLink
     }
-    // CALL API ENDPOINT TO CREATE BOOK
-    console.log(bookObj);
-    MOCK_BOOKS.books.push(bookObj);
-    console.log(MOCK_BOOKS.books);
-}
-
-
-// API CALLS
-
-// Update book
-function updateBook(userId, isbn, book) {
     
+    // check if book exists in sessionStorage
+    let bookExists = sessionStorage.getItem(bookObj.isbn);
+    console.log(bookObj.isbn);
+    console.log(bookExists);
+    
+    if(bookExists) {
+        console.log('book already exists!');
+        $('.book-result-dialog').append(`<p id="warningInfo">Book already exists on Shelf</p>`);
+    } else {
+        console.log('Adding new book!');
+        addBook(bookObj);
+    }
+    
+    getUserBooks(updateSessionStorageWithBooks);
+    getBooksFromSessionStorage(renderBooks)
 }
 
-let book = 
-        {
-            "id": "1111111",
-            "title": "mock book 1",
-            "author": "mock author 1",
-            "isbn": 1111111111,
-            "description": "mock desc 1",
-            "book_added": "2018-04-01",
-            "book_modified": "2018-04-02",
-            "rating_avg": 0,
-            "rating_user": 3,
-            "image_link": "./defaultBook.png"
-        }
-
-// insert a book
-function addBook(username, book) {
-    db.users.update( {username}, {$push: {'books': book}})   
-}
-
-
-function authenticateUser() {
+// find a book
+function findBook(isbn, callback) {
     $.ajax({
-       url: '/api/auth/login',
+       url: `/api/users/books/${isbn}`,
+       type: 'GET',
+       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')},
+    })
+    .done(function( data ) {    
+        console.log('found book!!!');
+        console.log(data);
+        callback(data);
+    })
+    .fail(function (err) {
+        console.error(err);
+    })
+}
+// add a user book
+function addBook(book) {
+    $.ajax({
+       url: '/api/users/books',
        type: 'POST',
-       data: {username: $('#username').val(), password: $('#password').val()},
+       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')},
+       data: JSON.stringify(book),
+       contentType: 'application/json',
        dataType: 'JSON'
     })
     .done(function( data ) {
-        $('.auth-warning').removeClass('warning-on').text('');
-        sessionStorage.setItem('token', data.token);
-        $('.view-shelf-btn').removeClass('hidden');
-        $('.login-btn').addClass('hidden');
-        console.log('authenticated...');
+        console.log(data);
+        $('.book-result-dialog').append(`<p id="successInfo">Added ${book.title} to your Shelf!</p>`);
     })
     .fail(function (err) {
-        console.error(err);
-        $('.view-shelf-btn').addClass('hidden');
-        $('.auth-warning').addClass('warning-on').text(err.responseText);
+        console.log(err);
+        $('.book-result-dialog').append(`<p id="warningInfo">${err.statusText}</p>`);
     })
 }
+// update or add a book
+function updateBook(book) {
+}
 
-// empty shelf view and populate with latest books
-function getUserBooks(callback) {
+function deleteBook(isbn) {
     $.ajax({
-       url: '/api/users/books',
-       type: 'GET',
-       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')},
-       dataType: 'JSON'
+       url: '/api/users/books/${isbn}',
+       type: 'DELETE',
+       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')}
     })
-    .done(function( books ) {
-        callback(books);
+    .done(function( data ) {
+        console.log(data);
+        console.log('Deleted book');
     })
     .fail(function (err) {
-        console.error(err);
-    });
+        console.log(err);
+    })
 }
-
-function renderBooksHome(books) {
-   /* window.location = '/home.html';
-    $( document ).ready(function() {
-        console.log('window loaded');
-        $('.user-books').children().remove();
-        $('.add-book-background').addClass('hidden');
-        $('.add-book-dialog').addClass('hidden');
-        $('.book-result-dialog').addClass('hidden');
-        renderBooks(books);        
-    });
-    */
-    console.log(books);
+    
+function getAuthToken(callback) {
+    $.ajax({
+       url: '/api/auth/refresh',
+       type: 'POST',
+       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')}
+    })
+    .done(function( data ) {
+        callback(data.authToken);
+    })
+    .fail(function (err) {
+        console.log(err);
+    })
 }
+    
+function addAuthToken(authToken) {
+    sessionStorage.setItem('token', authToken);
+}
+    
+    
+})

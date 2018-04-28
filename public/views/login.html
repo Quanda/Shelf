@@ -16,7 +16,7 @@
         </header>
 
         <main role="main">
-            <form class="login-form" name="login-form" id="login">
+            <form class="login-form" name="login-form">
                 <label for="username" class="input-label">
                     <input type="text" id="username" name="username" placeholder="Username">
                 </label><br>
@@ -24,13 +24,17 @@
                     <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password">
                 </label><br>
 
-                <button type="submit" class="btn btn-warning btn-lg login-btn">Login</button><br>
-                <button type="button" class="btn btn-success btn-lg view-shelf-btn hidden">Success! click to view shelf!</button>
-                <p class="auth-warning"></p>
+                <button type="submit" class="btn btn-light btn-lg login-btn">Login</button><br>
+                <p class="auth-warning"></p >
+            </form>
+            
+            <form class="proceed-form" name="proceed-form">    
+                <button type="submit" class="btn btn-success btn-lg proceed-btn hidden">Proceed!</button>
             </form>
         </main>
     </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="./app.js"></script>
+<script type="text/javascript" src="./api-calls.js"></script>
+<script type="text/javascript" src="./login.js"></script>
 </body>
 </html>
