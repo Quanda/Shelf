@@ -31,12 +31,11 @@ function authenticateUser() {
         $('.auth-warning').removeClass('warning-on').text('');
         $('.proceed-btn').removeClass('hidden');
         $('.login-btn').addClass('hidden');
-        console.log('authenticated...');
     })
     .fail(function (err) {
         console.log(err);
         $('.proceed-btn').addClass('hidden');
-        $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.location.toUpperCase()} ${err.responseJSON.message}`);
+        $('.auth-warning').addClass('warning-on').text(`${err.responseText}`);
     })
 }
 

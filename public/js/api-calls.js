@@ -15,8 +15,6 @@ function getUserBooks(callback) {
 
 
 function updateSessionStorageWithBooks(data) {
-    console.log('running updateSessionStorageWithBooks...')
-    console.log(data.books);
     data.books.forEach( (book, index) => {
         sessionStorage.setItem(data.books[index].isbn, JSON.stringify(data.books[index]));
     })
