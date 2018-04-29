@@ -33,6 +33,3 @@ function searchSingleVolume(id, callback) {
         console.error(err);
     })
 };
-
-
-// && (typeof volume.volumeInfo.description != 'undefined')
