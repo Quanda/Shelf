@@ -6,10 +6,12 @@
     <meta name="description" content="">
     <link type="text/css" rel="stylesheet" href="./main.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <title></title>
+    <title>Shelf login</title>
 </head>
 <body>
-    <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'";>
+    <div role="navigation">
+        <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'" aria-label="Back">
+    </div>
     
     <div class="wrapper jumbotron">
         
@@ -20,18 +22,20 @@
         <main role="main">
             <form class="login-form" name="login-form">
                 <label for="username" class="input-label">
-                    <input type="text" id="username" name="username" placeholder="Username">
+                    <input type="text" id="username" name="username" placeholder="Username" aria-label="Username">
                 </label><br>
                 <label for="password" class="input-label">
-                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password">
+                    <input type="password" id="password" name="password" placeholder="Password" aria-label="Password" autocomplete="current-password">
                 </label><br>
 
                 <button type="submit" class="btn btn-light btn-lg login-btn">Login</button><br>
                 <p class="auth-warning"></p >
             </form>
             
-            <form class="proceed-form" name="proceed-form">    
-                <button type="submit" class="btn btn-success btn-lg proceed-btn hidden">Proceed!</button>
+            <form class="proceed-form" name="proceed-form">   
+                <label for="proceed-btn">
+                    <button type="submit" name="proceed-btn" class="btn btn-success btn-lg proceed-btn hidden">Proceed!</button>
+                </label>
             </form>
         </main>
     </div>

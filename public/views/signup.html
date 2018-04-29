@@ -6,10 +6,12 @@
     <meta name="description" content="">
     <link type="text/css" rel="stylesheet" href="./main.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <title></title>
+    <title>Shelf signup</title>
 </head>
 <body>
-    <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'";>
+    <div role="navigation">
+        <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'" aria-label="Back">
+    </div>
 
     <div class="wrapper jumbotron">
 
@@ -20,13 +22,13 @@
         <main role="main">
             <form action="#" class="signup-form" name="signup-form">
                 <label for="fullname" class="input-label">
-                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" autocomplete="Name">
+                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" autocomplete="Name" aria-label="fullname">
                 </label><br>
                 <label for="username" class="input-label">
-                    <input type="text" id="username" name="username" placeholder="Username">
+                    <input type="text" id="username" name="username" placeholder="Username" aria-label="username">
                 </label><br>
                 <label for="password" class="input-label">
-                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password>">
+                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password>" aria-label="password">
                 </label><br>
                 <button type="submit" class="btn btn-light btn-lg signup-btn">Submit</button>
                 <p class="auth-warning"></p >

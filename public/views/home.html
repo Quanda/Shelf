@@ -9,14 +9,11 @@
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Shelf</title>
+    <title>Shelf homepage</title>
 </head>
 <body>
     
 <div class="wrapper">
-<input type="button" id="logout-btn" name="logout-btn" value="Logout" class="mgmt-btn btn btn-danger btn-lg">
-<input type="button" id="refresh-token-btn" name="refresh-token-btn" value="Refresh token" class="mgmt-btn btn btn-success btn-lg">
-<input type="button" id="add-book-btn" name="add-book-btn" value="Add books to Shelf" class="mgmt-btn btn btn-primary btn-lg">  
 
 <div class="add-book-background hidden"></div>
 <div class="add-book-dialog hidden">
@@ -38,7 +35,10 @@
 
     <header role="banner" class="jumbotron">
         <h1><span class="fa fa-book"></span> Shelf</h1> 
-        <p>Record your reads</p>
+        <p>Record your reads</p><br>
+        <input type="button" id="add-book-btn" name="add-book-btn" value="Add books to Shelf" class="btn btn-light btn-lg">  
+        <input type="button" id="refresh-token-btn" name="refresh-token-btn" value="Refresh token" class="btn btn-light btn-lg">
+        <input type="button" id="logout-btn" name="logout-btn" value="Logout" class="btn btn-light btn-lg">
     </header>
     
     <main role="main">

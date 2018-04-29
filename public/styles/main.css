@@ -14,9 +14,6 @@ header {
     margin-bottom: 0px !important;
 }
 
-header, h1, h2 {
-    color: #23405B;
-}
 header h1 {
     font-size: 58px;
     font-weight: 300;
@@ -37,9 +34,10 @@ header p {
 .user-books {
     margin-top: 50px;
 }
-.user-book img, .selected-volume img {
-    margin-top: 10px;
+.user-book {
+    text-align: left;
 }
+
 #delete-book-btn {
     margin-top: 30px;
 }
@@ -73,17 +71,18 @@ header p {
 }
 
 .book-result-dialog {
-    width:70%;
+    width:85%;
     position: absolute;
     left: 0;
     right: 0;
     background-color: white;
     margin: auto;
     z-index: 3;
-    text-align: center;
+    text-align: left;
     top: 5%;
     min-height: 750px;
     border: 2px solid black;
+    padding: 10px 30px 10px 30px; 
 }
 
 .add-book-form {
@@ -114,24 +113,36 @@ header p {
   text-decoration: none;
   text-shadow: 0 1px 0 #fff;
   top: 5px;
+  color: #23405B;
 }
 .close-btn:after {
   content: 'X'; /* ANSI X letter */
 }
 
 #apidoc {
+    text-align: left;
     background-color: white;
-    width: 850px;
+    width: 50vw;
     margin: auto;
     padding: 10px;
 }
+.api-head {
+    font-size: 20px;
+    font-weight: bold;
+}
+.api-method span {
+    font-style: italic;
+}
+.api-method {
+    font-size: 20px;
+}
 
 @media screen and (max-width: 850px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
     
     .book-result-dialog {
         min-height: 150px;
+    }
+    #apidoc {
+        width: 100vw
     }
 }

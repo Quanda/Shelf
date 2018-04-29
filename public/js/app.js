@@ -163,7 +163,7 @@ function renderBooks(books) {
         let userBook = 
         `<div class="result" id="${book.isbn}">
             <img src="${book.image_link}" alt="book image"/>
-            <h5> ${book.title}</h5>
+            <p><b> ${book.title} </b></p>
             <p>${book.author}</p>
         </div>`
         
