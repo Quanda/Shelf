@@ -1,57 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #eee">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
-    <link type="text/css" rel="stylesheet" href="./grid.css">
     <link type="text/css" rel="stylesheet" href="./main.css">
-    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Shelf</title>
 </head>
 <body>
-    
-<div class="wrapper">
-    
-<div class="add-book-background hidden"></div>
-<div class="add-book-dialog hidden">
-    <!--<button type="button" class="add-book-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-    <a class="close-btn"></a>
-    <h2>Add to shelf</h2>   
-    <form action="#" class="add-book-form" name="add-book-form">
-        <label for="book-search" class="input-label">
-            <input type="text" id="book-search" name="book-search" placeholder="search books...">
-        </label>            
-        <button type="submit">Find</button>
-    </form>    
-    <div class="book-searchresults grid">
-    </div>
-</div>
-<div class="book-result-dialog hidden">
-</div>
+    <div class="wrapper">
+        
+        <header role="banner" class="jumbotron">
+            <h1><span class="fa fa-book"></span> Shelf</h1> 
+            <p>Record your reads</p>
+        </header>
+        <main>
+            <a href="/login.html" class="btn btn-default btn-lg"><span class="fa fa-user"></span> Login</a>
+            <a href="/signup.html" class="btn btn-default btn-lg"><span class="fa fa-user"></span> Register</a>
+            <a href="/apidoc.html" class="btn btn-default btn-lg"><span class="fa fa-sticky-note-o"></span> API Doc</a>
+        </main>
 
-    <header role="banner">
-        <h1><span class="fa fa-book"></span> Shelf</h1> 
-        <p>Record your reads</p><br/>
-    </header>
-    
-    <main role="main">
-        <label for="add-book-btn" class="input-label">
-            <input type="button" id="add-book-btn" name="add-book-btn" value="Add a book">
-        </label>
-        <div class="user-books grid">
-        </div>
-    </main>
-    
-    <footer>
-    </footer>
-    
 </div>
-
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="./google-books-search.js"></script>
-<script type="text/javascript" src="./app.js"></script>
 </body>
 </html>

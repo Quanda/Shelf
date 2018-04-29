@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #eee">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
     <link type="text/css" rel="stylesheet" href="./main.css">
-    <title></title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <title>Shelf login</title>
 </head>
 <body>
-    <div class="wrapper">
+    <div role="navigation">
+        <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'" aria-label="Back">
+    </div>
+    
+    <div class="wrapper jumbotron">
+        
         <header role="banner">
             <h1>Log In</h1>
         </header>
 
         <main role="main">
-            <form action="#" class="login-form" name="login-form">
-                <label for="email" class="input-label">
-                    <input type="text" id="email" name="email" placeholder="Email"  autocomplete="Email"><br>
-                </label>
+            <form class="login-form" name="login-form">
+                <label for="username" class="input-label">
+                    <input type="text" id="username" name="username" placeholder="Username" aria-label="Username">
+                </label><br>
                 <label for="password" class="input-label">
-                    <input type="text" id="password" name="password" placeholder="Password"><br><br>
-                </label>
+                    <input type="password" id="password" name="password" placeholder="Password" aria-label="Password" autocomplete="current-password">
+                </label><br>
 
-                <button type="submit">Login</button>
+                <button type="submit" class="btn btn-light btn-lg login-btn">Login</button><br>
+                <p class="auth-warning"></p >
+            </form>
+            
+            <form class="proceed-form" name="proceed-form">   
+                <label for="proceed-btn">
+                    <button type="submit" name="proceed-btn" class="btn btn-success btn-lg proceed-btn hidden">Proceed!</button>
+                </label>
             </form>
         </main>
-
-        <footer>
-        </footer>
     </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="./api-calls.js"></script>
+<script type="text/javascript" src="./login.js"></script>
 </body>
 </html>

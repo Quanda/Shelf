@@ -6,13 +6,14 @@ html {
     font-family: "Helvetica Neue","Helvetica","Arial","sans-serif";
 }
 
-header {
-    margin-bottom: 30px;
+body {
+    background-color: #eee !important;
 }
 
-header, h1, h2 {
-    color: #23405B;
+header {
+    margin-bottom: 0px !important;
 }
+
 header h1 {
     font-size: 58px;
     font-weight: 300;
@@ -33,7 +34,18 @@ header p {
 .user-books {
     margin-top: 50px;
 }
+.user-book {
+    text-align: left;
+}
 
+#delete-book-btn {
+    margin-top: 30px;
+}
+
+.mgmt-btn {
+    margin: 20px 20px 0px 0px;
+    float: right;
+}
 .add-book-background {
     background-color: #000000bd;
     position: fixed;
@@ -59,25 +71,22 @@ header p {
 }
 
 .book-result-dialog {
-    width:70%;
-    position: fixed;
+    width:85%;
+    position: absolute;
     left: 0;
     right: 0;
     background-color: white;
     margin: auto;
     z-index: 3;
-    text-align: center;
+    text-align: left;
     top: 5%;
     min-height: 750px;
     border: 2px solid black;
+    padding: 10px 30px 10px 30px; 
 }
 
 .add-book-form {
     margin: 25px;
-}
-
-.book-searchresult-backout {
-    padding-top: 15px;
 }
 
 .result {
@@ -86,8 +95,15 @@ header p {
 }
 
 
-
-
+.warning-on {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+}
+.proceed-btn {
+    font-size: 28px !important;
+}
 
 /* CLOSE BUTTON */
 .close-btn {
@@ -97,7 +113,36 @@ header p {
   text-decoration: none;
   text-shadow: 0 1px 0 #fff;
   top: 5px;
+  color: #23405B;
 }
 .close-btn:after {
   content: 'X'; /* ANSI X letter */
+}
+
+#apidoc {
+    text-align: left;
+    background-color: white;
+    width: 50vw;
+    margin: auto;
+    padding: 10px;
+}
+.api-head {
+    font-size: 20px;
+    font-weight: bold;
+}
+.api-method span {
+    font-style: italic;
+}
+.api-method {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 850px) {
+    
+    .book-result-dialog {
+        min-height: 150px;
+    }
+    #apidoc {
+        width: 100vw
+    }
 }

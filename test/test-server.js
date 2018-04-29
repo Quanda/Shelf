@@ -28,7 +28,14 @@ describe('Shelf', function() {
   after(function() {
     return closeServer();
   });
-
+  it('should return index page', function() {
+    return chai.request(app)
+      .get('/index.html')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.html;
+      });
+  });
   it('should return home page', function() {
     return chai.request(app)
       .get('/')
@@ -50,6 +57,14 @@ describe('Shelf', function() {
   it('should return signup page', function() {
     return chai.request(app)
       .get('/signup.html')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.html;
+      });
+  });
+  it('should return apidoc page', function() {
+    return chai.request(app)
+      .get('/apidoc.html')
       .then(function(res) {
         expect(res).to.have.status(200);
         expect(res).to.be.html;

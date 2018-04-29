@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #eee">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+    <link type="text/css" rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Shelf API Docs</title>
+</head>
+<body>
+    <div role="navigation">
+        <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'";>
+    </div>
+    
+    <div class="wrapper">
+        
+        <header role="banner" class="jumbotron" style="padding-bottom: 10px;">
+            <h1><span class="fa fa-book"></span> Shelf</h1> 
+            <p>API Docs</p>
+        </header>
+        
+        <main id="apidoc">
+            <p class="api-head">Authentication / Login</p>
+            <p class="api-method">POST &nbsp;&nbsp;&nbsp; <span>/api/users/books</span></p>
+            <p class="api-info">Bearer Authentication with JSON Web Token</p>
+            <p class="api-info">Must supply valid Username and Password in request header</p>
+            <p class="api-info">If authentication suceeds, a valid 7d expiry JWT will be provided in response body</p>
+                    
+            <p class="api-head">Get All Books</p>
+            <p class="api-method">GET &nbsp;&nbsp;&nbsp; <span>/api/auth/login</span></p>
+            <p class="api-info">This endpoint retrieves all books from user Shelf</p>
+            <p class="api-info">Must supply valid JWT via Bearer Authentication</p>
+            <p class="api-info">If authentication suceeds, all User books will be returned</p>        
+            
+            <p class="api-head">Get Single Book</p>
+            <p class="api-method">GET &nbsp;&nbsp;&nbsp; <span>/api/users/books/{ISBN-GOES-HERE}</span></p>
+            <p class="api-info">This endpoint retrieves a single book from user Shelf</p>
+            <p class="api-info">Supply ISBN as route parameter</p>
+            <p class="api-info">Must supply valid JWT via Bearer Authentication</p>
+            <p class="api-info">If authentication suceeds, single User books will be returned</p> 
+  
+            <p class="api-head">Add Book</p>
+            <p class="api-method">POST &nbsp;&nbsp;&nbsp; <span>/api/users/books</span></p>
+            <p class="api-info">This endpoint adds a single book to user Shelf</p>
+            <p class="api-info">Supply book object in request body</p>
+            <p class="api-info">Must supply valid JWT via Bearer Authentication</p>
+            
+            <p class="api-head">Update Book</p>
+            <p class="api-method">PUT &nbsp;&nbsp;&nbsp; <span>/api/users/books/{ISBN-GOES-HERE}</span></p>
+            <p class="api-info">This endpoint updates a single book in user Shelf</p>
+            <p class="api-info">Supply ISBN as route parameter</p>
+            <p class="api-info">Supply book object in request body</p>
+            <p class="api-info">Must supply valid JWT via Bearer Authentication</p>
+            
+            <p class="api-head">Delete Book</p>
+            <p class="api-method">DELETE &nbsp;&nbsp;&nbsp; <span>/api/users/books/{ISBN-GOES-HERE}</span></p>
+            <p class="api-info">This endpoint deletes a single book from user Shelf</p>
+            <p class="api-info">Supply ISBN as route parameter</p>
+            <p class="api-info">Must supply valid JWT via Bearer Authentication</p>   
+        </main>
+
+</div>
+</body>
+</html>

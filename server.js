@@ -1,13 +1,42 @@
-// load express
+'use strict';
+
+// load dependencies
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const passport = require('passport');
 
-// reveal config vars
+mongoose.Promise = global.Promise;
+
+// load authentication
+const { router: usersRouter } = require('./users');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
+
+// load config
 const { PORT, DATABASE_URL } = require('./config');
 
-// create app
+// create express app
 const app = express();
 
+// logging
+app.use(morgan('common'));
+
+//app.set('view engine', 'ejs');
+
+// CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 // serve static assets from public folder
 app.use(express.static('public/views'));
@@ -15,6 +44,15 @@ app.use(express.static('public/js'));
 app.use(express.static('public/styles'));
 app.use(express.static('public/images'));
 
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+app.use('*', (req, res) => {
+  return res.status(404).json({ message: 'Aint nothin here' });
+});
 
 // both runServer and closeServer need to access the same
 // server object, so we declare `server` here, and then when

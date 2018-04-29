@@ -1,0 +1,48 @@
+
+[
+    {
+      "firstName": "Eric",
+      "lastName": "Furspan",
+      "username": "Quanda",
+      "password": "123456",
+      "books": [
+        {
+          "id": 1111111,
+          "title": "mock book 1",
+          "author": "mock author 1",
+          "isbn": 1111111111,
+          "description": "mock desc 1",
+          "book_added": "2018-04-01",
+          "book_modified": "2018-04-02",
+          "rating_avg": 0,
+          "rating_user": 3,
+          "image_link": "./defaultBook.png"
+        }
+      ]
+    },
+    {
+      "firstName": "Joe",
+      "lastName": "Momma",
+      "username": "JoeMomma",
+      "password": "deh",
+      "books": [
+        {
+          "id": 2222222,
+          "title": "mock book 2",
+          "author": "mock author 2",
+          "isbn": "Deh",
+          "description": "mock desc 2",
+          "book_added": "2018-04-01",
+          "book_modified": "2018-04-02",
+          "rating_avg": 0,
+          "rating_user": 3,
+          "image_link": "./defaultBook.png"
+        }
+      ]
+    }
+]
+
+
+
+
+
