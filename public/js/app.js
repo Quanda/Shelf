@@ -37,7 +37,8 @@ $('.volume-searchresults').on('click', '.result', function() {
     let selectedBookId = $(this).attr('id');
     console.log(`clicked book ${selectedBookId}`);
     $('.book-result-dialog').removeClass('hidden');
-    searchSingleVolume(selectedBookId, renderVolume)
+    searchSingleVolume(selectedBookId, renderVolume);
+    $('html, body').animate({ scrollTop: 0 }, 'fast');
 });
 // Add book to shelf
 // gets bookId, looks up book, calls addToShelf fn
@@ -48,7 +49,7 @@ $('.book-result-dialog').on('click', '.add-to-shelf-btn', function() {
 });
 $('.book-result-dialog').on('click', '.view-books-btn', function() {
     getUserBooks(updateSessionStorageWithBooks);
-    window.location.href = '/home.html' //    window.location.replace("/home.html")
+    window.location.replace("/home.html")
 });
     
 $('.book-result-dialog').on('click', '.book-result-close', function() {
@@ -63,6 +64,7 @@ $('.user-books').on('click', '.result', function() {
     findBook(isbn, renderBook);
     
     $('.book-result-dialog').removeClass('hidden');
+    $('html, body').animate({ scrollTop: 0 }, 'fast');
 })
 
 // Log user out
@@ -182,6 +184,7 @@ function renderBook(book) {
         <p>Added: ${book.book_added}</p>
         <p>Last modified ${book.book_modified}</p>
         <p>Average Rating (out of 5): ${book.rating_avg}</p>
+        <input type="button" id="delete-book-btn" name="delete-book-btn" value="Delete book" class="btn btn-danger btn-md">  
     </div>`
     $('.book-result-dialog').html('');
     $('.book-result-dialog').html(bookHtml);
@@ -225,7 +228,7 @@ function addToShelf(book) {
     
     if(bookExists) {
         console.log('book already exists!');
-        $('.book-result-dialog').append(`<p id="warningInfo">Book already exists on Shelf</p>`);
+        $('.book-result-dialog').append(`<h3 id="warningInfo" style="color: #d43f3a">Book already exists on Shelf</h3>`);
     } else {
         console.log('Adding new book!');
         addBook(bookObj);
@@ -263,11 +266,11 @@ function addBook(book) {
     })
     .done(function( data ) {
         console.log(data);
-        $('.book-result-dialog').append(`<p id="successInfo">Added ${book.title} to your Shelf!</p>`);
+        $('.book-result-dialog').append(`<h3 id="successInfo" style="color: #5cb85c">Added ${book.title} to your Shelf!</h3>`);
     })
     .fail(function (err) {
         console.log(err);
-        $('.book-result-dialog').append(`<p id="warningInfo">${err.statusText}</p>`);
+        $('.book-result-dialog').append(`<h3 id="warningInfo" style="color: #d43f3a">${err.statusText}</h3>`);
     })
 }
 // update or add a book
@@ -305,6 +308,7 @@ function getAuthToken(callback) {
     
 function addAuthToken(authToken) {
     sessionStorage.setItem('token', authToken);
+    $(`<h3 style="color:#5cb85c">Token refreshed!</h3>`).insertAfter('header').delay(3000).fadeOut();
 }
     
     

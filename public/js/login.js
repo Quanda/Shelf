@@ -15,7 +15,7 @@ $('.proceed-form').submit(function(event) {
     getUserBooks(updateSessionStorageWithBooks);
     
     // render home page
-    window.location.replace("/home.html")
+    window.location.replace("/home.html");
 })
 
 function authenticateUser() {
@@ -34,9 +34,9 @@ function authenticateUser() {
         console.log('authenticated...');
     })
     .fail(function (err) {
-        console.error(err);
+        console.log(err);
         $('.proceed-btn').addClass('hidden');
-        $('.auth-warning').addClass('warning-on').text(err.responseText);
+        $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.location.toUpperCase()} ${err.responseJSON.message}`);
     })
 }
 

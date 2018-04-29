@@ -9,6 +9,8 @@
     <title></title>
 </head>
 <body>
+    <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'";>
+
     <div class="wrapper jumbotron">
 
         <header role="banner">
@@ -27,6 +29,10 @@
                     <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password>">
                 </label><br>
                 <button type="submit" class="btn btn-light btn-lg signup-btn">Submit</button>
+                <p class="auth-warning"></p >
+            </form>
+            <form class="proceed-form" name="proceed-form">    
+                <button type="submit" class="btn btn-primary btn-lg proceed-btn hidden">Success! Proceed to Login</button>
             </form>
         </main>
     </div>

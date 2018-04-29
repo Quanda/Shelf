@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #eee">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+    <link type="text/css" rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title></title>
+</head>
+<body>
+    <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'";>
+    
+    <div class="wrapper">
+        
+        <header role="banner" class="jumbotron" style="padding-bottom: 10px;">
+            <h1><span class="fa fa-book"></span> Shelf</h1> 
+            <p>API Docs</p>
+        </header>
+        
+        <main id="apidoc">
+            <h2>Authentication</h2>
+                <p>Bearer Authentication with JSON Web Token</p>
+                <p>POST request to '/api/auth/login' with Username and Password supplied in request header</p>
+                <p>If authentication suceeds, a valid 7d expiry JWT will be provided in response body</p>
+            
+            <h2>Get All Books</h2>
+                <p>This endpoint retrieves all books</p>
+                <h4>HTTP Request</h4>
+                    <p>GET /api/users/books</p>
+                <h4>Query Parameters</h4>
+                    <p>None</p>
+                <h4>Authentication</h4>
+                    <p>Supply a valid, non-expired JWT in bearer token</p>
+            <h2>Get Single Book</h2>
+                <p>This endpoint retrieves a single book</p>
+                <h4>HTTP Request</h4>
+                    <p>GET /api/users/books/{ISBN-GOES-HERE}</p>
+                <h4>Query Parameters</h4>
+                    <p>ISBN</p>
+                <h4>Authentication</h4>
+                    <p>Supply a valid, non-expired JWT in bearer token</p>
+            <h2>Add Book</h2>
+                <p>This endpoint adds a single book</p>
+                <h4>HTTP Request</h4>
+                    <p>POST /api/users/books</p>
+                <h4>Query Parameters</h4>
+                    <p>Book</p>
+                <h4>Authentication</h4>
+                    <p>Supply a valid, non-expired JWT in bearer token</p>
+            <h2>Update a Book - COMING SOON</h2>
+                <p>This endpoint updates a single book</p>
+            <h2>Delete a Book - COMING SOON</h2>
+                <p>This endpoint deletes a single book</p>    
+        </main>
+
+</div>
+</body>
+</html>

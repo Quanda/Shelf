@@ -21,10 +21,14 @@ $('.signup-form').submit(function(event) {
     registerUser(user);
 })
 
+$('.proceed-form').submit(function(event) {  
+    event.preventDefault();
+    
+    // render login page
+    window.location.replace("/login.html")
+})
 
 function registerUser(user) {
-    console.log('running registerUser');
-    console.log(user);
     $.ajax({
        url: '/api/users',
        type: 'POST',
@@ -33,10 +37,12 @@ function registerUser(user) {
        dataType: 'JSON'
     })
     .done(function( data ) {
-        console.log(data);
-        console.log('registered user...');
+        $('.auth-warning').removeClass('warning-on').text('');
+        $('.proceed-btn').removeClass('hidden');
     })
     .fail(function (err) {
-        console.error(err);
+        console.log(err);
+        $('.proceed-btn').addClass('hidden');
+        $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.location.toUpperCase()} ${err.responseJSON.message}`);
     })
 }

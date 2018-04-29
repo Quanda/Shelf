@@ -25,17 +25,18 @@ router.use(bodyParser.urlencoded({
 
 // The user provides a username and password to login
 router.post('/login', localAuth, (req, res) => {
-  console.log('user trying to POST login');
+  console.log('authenticated user');
   const authToken = createAuthToken(req.user.serialize());
    
   res.json({token: authToken});
-});
+})
 
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 // The user exchanges a valid JWT for a new one with a later expiration
 router.post('/refresh', jwtAuth, (req, res) => {
+  console.log('authenticated user');
   const authToken = createAuthToken(req.user);
   res.json({authToken});
 });

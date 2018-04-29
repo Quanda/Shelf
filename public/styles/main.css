@@ -37,6 +37,12 @@ header p {
 .user-books {
     margin-top: 50px;
 }
+.user-book img, .selected-volume img {
+    margin-top: 10px;
+}
+#delete-book-btn {
+    margin-top: 30px;
+}
 
 .mgmt-btn {
     margin: 20px 20px 0px 0px;
@@ -113,7 +119,12 @@ header p {
   content: 'X'; /* ANSI X letter */
 }
 
-
+#apidoc {
+    background-color: white;
+    width: 850px;
+    margin: auto;
+    padding: 10px;
+}
 
 @media screen and (max-width: 850px) {
     .grid {

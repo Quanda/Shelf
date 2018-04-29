@@ -15,9 +15,6 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 // Get all books
 // A protected endpoint which needs a valid JWT to access it
 router.get('/books', jwtAuth, (req, res) => {
-    //console.log(req.user);
-    //console.log(res);
-    //return res.json({data: 'deh'})
     const username = req.user.username;
     
     // return users books
@@ -122,7 +119,7 @@ router.post('/', jsonParser, (req, res) => {
 
   const sizedFields = {
     username: {
-      min: 1
+      min: 2
     },
     password: {
       min: 6,

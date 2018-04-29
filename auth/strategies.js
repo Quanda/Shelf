@@ -13,15 +13,15 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
 console.log('running localStrategy middleware...');
 
   let user;
-  User.findOne({username: username })
+  User.findOne({ username })
     .then(_user => {
       user = _user;
-      if (!user) { // no user found
+      if (!user) { 
         // Return a rejected promise so we break out of the chain of .thens.
         return Promise.reject({
           reason: 'LoginError',
           message: 'Could not find user'
-        });
+        }); 
       }
       console.log(`found user ${user.username}!!!!!`);
       console.log(`validating password: ${password} .....`);
