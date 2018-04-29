@@ -1,7 +1,6 @@
 // handle user submitting registration form
 $('.signup-form').submit(function(event) {
     event.preventDefault();
-    console.log('clicked signup button');
     const name = $('#fullname').val();
     if(typeof $('#fullname').val() != 'undefined') {
         

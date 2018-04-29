@@ -21,7 +21,6 @@ $('.add-book-dialog').on('click', '.close-btn', function() {
     $('.book-result-dialog').html('').addClass('hidden');
 });
 $('.book-result-dialog').on('click', '.close-btn', function() {
-    console.log('closing book result');
     $('.book-result-dialog').addClass('hidden');
     $('.selected-volume img').remove();
 });
@@ -35,7 +34,6 @@ $('.add-book-form').on('submit', function(event) {
 });
 $('.volume-searchresults').on('click', '.result', function() {
     let selectedBookId = $(this).attr('id');
-    console.log(`clicked book ${selectedBookId}`);
     $('.book-result-dialog').removeClass('hidden');
     searchSingleVolume(selectedBookId, renderVolume);
     $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -59,7 +57,6 @@ $('.book-result-dialog').on('click', '.book-result-close', function() {
 // render user book
 $('.user-books').on('click', '.result', function() {
     const isbn = $(this).attr('id');
-    console.log(isbn);
     
     findBook(isbn, renderBook);
     
@@ -69,18 +66,14 @@ $('.user-books').on('click', '.result', function() {
 
 // Log user out
 // Clear session storage and redirect to index
-$('#logout-btn').on('click', function() {
-    console.log('clicked logout btn');
-    
+$('#logout-btn').on('click', function() {    
     sessionStorage.clear();
     
     window.location.replace("/index.html")
 })
  
 // Refresh auth token
-$('#refresh-token-btn').on('click', function() {
-    console.log('clicked refresh token btn');
-    
+$('#refresh-token-btn').on('click', function() {    
     getAuthToken(addAuthToken);
 })
 
@@ -89,7 +82,6 @@ $('#refresh-token-btn').on('click', function() {
 
 // renders all volumes returned from google query
 let renderVolumes = function(volumeResults) {   
-    console.log(volumeResults);
     volumeResults.forEach( (volume) => {
 
         let author = volume.volumeInfo.authors[0];
@@ -116,7 +108,6 @@ let renderVolumes = function(volumeResults) {
 }
 // render the view for a single volume
 function renderVolume(volume) {
-    console.log(volume);
     let author = volume.volumeInfo.authors[0];
     let description = volume.volumeInfo.description;
     let imageLink;
@@ -148,7 +139,6 @@ function getBooksFromSessionStorage(callback) {
     for(let i = 0; i < sessionStorage.length; i++){
         if(sessionStorage.key(i) != 'token') {
             let key = sessionStorage.key(i);
-            console.log(`key: ${key}`);
             let bookObj = sessionStorage.getItem(key);
             USER_BOOKS.push(JSON.parse(bookObj));
         }
@@ -158,7 +148,6 @@ function getBooksFromSessionStorage(callback) {
     
 // render the users books in the view
 function renderBooks(books) {
-    console.log('running renderBooks()')
     books.forEach( (book) => {
         let userBook = 
         `<div class="result" id="${book.isbn}">
@@ -172,7 +161,6 @@ function renderBooks(books) {
 }
 
 function renderBook(book) {
-    console.log(book);
     let bookHtml = `
     <div class="user-book" id="${book.isbn}">
         <a class="close-btn"></a>
@@ -223,14 +211,10 @@ function addToShelf(book) {
     
     // check if book exists in sessionStorage
     let bookExists = sessionStorage.getItem(bookObj.isbn);
-    console.log(bookObj.isbn);
-    console.log(bookExists);
     
     if(bookExists) {
-        console.log('book already exists!');
         $('.book-result-dialog').append(`<h3 id="warningInfo" style="color: #d43f3a">Book already exists on Shelf</h3>`);
     } else {
-        console.log('Adding new book!');
         addBook(bookObj);
     }
     
@@ -246,8 +230,6 @@ function findBook(isbn, callback) {
        headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')},
     })
     .done(function( data ) {    
-        console.log('found book!!!');
-        console.log(data);
         callback(data);
     })
     .fail(function (err) {
@@ -265,7 +247,6 @@ function addBook(book) {
        dataType: 'JSON'
     })
     .done(function( data ) {
-        console.log(data);
         $('.book-result-dialog').append(`<h3 id="successInfo" style="color: #5cb85c">Added ${book.title} to your Shelf!</h3>`);
     })
     .fail(function (err) {
@@ -285,7 +266,6 @@ function deleteBook(isbn) {
     })
     .done(function( data ) {
         console.log(data);
-        console.log('Deleted book');
     })
     .fail(function (err) {
         console.log(err);

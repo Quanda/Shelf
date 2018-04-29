@@ -10,7 +10,6 @@ const { JWT_SECRET } = require('../config');
 
 
 const localStrategy = new LocalStrategy((username, password, callback) => {
-console.log('running localStrategy middleware...');
 
   let user;
   User.findOne({ username })
@@ -23,8 +22,6 @@ console.log('running localStrategy middleware...');
           message: 'Could not find user'
         }); 
       }
-      console.log(`found user ${user.username}!!!!!`);
-      console.log(`validating password: ${password} .....`);
       return user.validatePassword(password);
     })
     // password invalid
