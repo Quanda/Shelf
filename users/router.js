@@ -66,6 +66,47 @@ router.delete('/books/:isbn', jwtAuth, (req, res) => {
     const username = req.user.username;
     
     // delete book from db
+    return User.update( {username}, {$pull: { 'books': { isbn: isbn } } } )
+     .then( function(data) {
+        console.log(data);
+        if(data.nModified > 0) {
+           return res.sendStatus(204);
+        }
+        else {
+            return res.sendStatus(404);
+        }
+     })
+     .catch( err => {
+       return res.status(500).json({message: `Internal server error`});
+     });
+
+});
+
+// Update user rating
+// A protected endpoint which needs a valid JWT to access it
+router.put('/books/:isbn/:rating', jwtAuth, jsonParser, (req, res) => {
+    const isbn = req.params.isbn;
+    const new_rating = req.params.rating;
+    const username = req.user.username;
+    
+    console.log(new_rating);
+    let user_id;
+
+    User.find( { username } )
+    .then( function(data) {
+        user_id = data[0]._id
+        
+        let query = { _id: user_id, books: { $elemMatch: { isbn } } };
+        let update = { "books.$.rating_user": new_rating}
+
+        return User.update( query, {$set: update })
+         .then( function(data) {
+            res.json(data);
+        }) 
+         .catch( err => {
+           return res.status(500).json({message: `Internal server error`});
+         });
+    })
 });
 
 // Post to register a new user
