@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" href="./main.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Shelf API Docs</title>
+    <title>Shelf API Doc</title>
 </head>
 <body>
     <div role="navigation">
@@ -18,18 +18,23 @@
         
         <header role="banner" class="jumbotron" style="padding-bottom: 10px;">
             <h1><span class="fa fa-book"></span> Shelf</h1> 
-            <p>API Docs</p>
+            <p>API Doc</p>
         </header>
         
         <main id="apidoc">
             <p class="api-head">Authentication / Login</p>
-            <p class="api-method">POST &nbsp;&nbsp;&nbsp; <span>/api/users/books</span></p>
+            <p class="api-method">POST &nbsp;&nbsp;&nbsp; <span>/api/auth/login</span></p>
             <p class="api-info">Bearer Authentication with JSON Web Token</p>
             <p class="api-info">Must supply valid Username and Password in request header</p>
             <p class="api-info">If authentication suceeds, a valid 7d expiry JWT will be provided in response body</p>
-                    
+       
+            <p class="api-head">Register New User</p>
+            <p class="api-method">POST &nbsp;&nbsp;&nbsp; <span>/api/users</span></p>
+            <p class="api-info">Must supply Fullname, Username and Password in request body</p>
+            <p class="api-info">If successful, a valid 7d expiry JWT will be provided in response body</p>
+            
             <p class="api-head">Get All Books</p>
-            <p class="api-method">GET &nbsp;&nbsp;&nbsp; <span>/api/auth/login</span></p>
+            <p class="api-method">GET &nbsp;&nbsp;&nbsp; <span>/api/users/books</span></p>
             <p class="api-info">This endpoint retrieves all books from user Shelf</p>
             <p class="api-info">Must supply valid JWT via Bearer Authentication</p>
             <p class="api-info">If authentication suceeds, all User books will be returned</p>        

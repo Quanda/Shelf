@@ -1,9 +1,8 @@
 $(function() { // on ready    
-    
-getUserBooks(updateSessionStorageWithBooks);
-    
-getBooksFromSessionStorage(renderBooks)
 
+getUserBooks(updateSessionStorageWithBooks);
+getBooksFromSessionStorage(renderBooks);
+    
 
 // EVENT LISTENERS
 
@@ -13,6 +12,22 @@ $('#add-book-btn').on('click', function() {
     $('.add-book-background').removeClass('hidden');
     $('.add-book-dialog').removeClass('hidden');
 });
+$('.book-result-dialog').on('click', '#delete-book-btn', function() {
+    const isbn = $(this).parent().attr('id');
+    
+    deleteBook(isbn);
+});
+$('.book-result-dialog').on('click', '#update-rating-btn', function() {
+    // show updatable fields
+    $('.update-rating-form').removeClass('hidden');
+});
+
+$('.book-result-dialog').change('.update-rating-form', function(event) {
+    const selected_rating = $(event.target).val();
+    const isbn = $(this).children('.user-book').attr('id');
+    updateRating(isbn, selected_rating);
+})
+
 // handle escaping from add book dialog
 // hide modal
 $('.add-book-dialog').on('click', '.close-btn', function() {
@@ -101,7 +116,7 @@ let renderVolumes = function(volumeResults) {
             <div class="result" id="${volume.id}">
                 <img src="${imageLink}" alt="book image"/>
                 <p> ${volume.volumeInfo.title}</p>
-                <h5>by ${author}</h5>
+                <p>by ${author}</p>
             </div>`
         $('.volume-searchresults').append(volumeHtml);
     })
@@ -125,7 +140,7 @@ function renderVolume(volume) {
         <a class="close-btn"></a>
         <img src="${imageLink}" alt="volume image"/>
         <p> ${volume.volumeInfo.title}</p>
-        <h5>by ${author}</h5>
+        <p>by ${author}</p>
         <p>${description}</p>
         <button class="add-to-shelf-btn btn btn-primary btn-md">Add to Shelf</button>
         <button class="view-books-btn btn btn-primary btn-md">View books</button>
@@ -164,14 +179,26 @@ function renderBook(book) {
     let bookHtml = `
     <div class="user-book" id="${book.isbn}">
         <a class="close-btn"></a>
-        <img src="${book.image_link}" alt="volume image"/>
-        <h2> ${book.title}</p>
-        <h5>${book.author}</h5>
+        <img src="${book.image_link}" alt="volume image" aria-label="volume image"/>
+        <h2> ${book.title}</h2>
+        <p><b>${book.author}</b></p>
         <p>${book.description}</p>
         <p>ISBN: ${book.isbn}</p>
         <p>Added: ${book.book_added}</p>
-        <p>Last modified ${book.book_modified}</p>
-        <p>Average Rating (out of 5): ${book.rating_avg}</p>
+        <span>Your rating: ${book.rating_user}</span>
+        <span id="update-rating-btn"><a>Edit</a></span>
+        <form action="#" class="update-rating-form hidden" name="update-rating-form">
+            <select class="rating-select custom-select">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </form>
+        <p></p>
+        <p>Average Google Rating (out of 5): ${book.rating_avg}</p>
         <input type="button" id="delete-book-btn" name="delete-book-btn" value="Delete book" class="btn btn-danger btn-md">  
     </div>`
     $('.book-result-dialog').html('');
@@ -254,18 +281,36 @@ function addBook(book) {
         $('.book-result-dialog').append(`<h3 id="warningInfo" style="color: #d43f3a">${err.statusText}</h3>`);
     })
 }
-// update or add a book
-function updateBook(book) {
+// update book rating
+function updateRating(isbn, new_rating) {
+    $('#successInfo').remove();
+   $.ajax({
+       url: `/api/users/books/${isbn}/${new_rating}`,
+       type: 'PUT',
+       headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')}
+    })
+    .done(function( data ) {
+       console.log(data)
+        $('.book-result-dialog').append(`<h3 id="successInfo" style="color: #5cb85c">Rating updated!</h3>`);
+    })
+    .fail(function (err) {
+        console.log(err);
+        $('.book-result-dialog').append(`<h3 id="warningInfo" style="color: #d43f3a">${err.statusText}</h3>`);
+    }) 
 }
 
 function deleteBook(isbn) {
     $.ajax({
-       url: '/api/users/books/${isbn}',
+       url: `/api/users/books/${isbn}`,
        type: 'DELETE',
        headers: {"Authorization": 'Bearer ' + sessionStorage.getItem('token')}
     })
     .done(function( data ) {
-        console.log(data);
+        // remove book from sessionStorage
+        sessionStorage.removeItem(isbn);
+       
+        // render homepage        
+        window.location.replace("/home.html")
     })
     .fail(function (err) {
         console.log(err);

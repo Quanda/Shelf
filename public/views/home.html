@@ -14,21 +14,25 @@
 <body>
     
 <div class="wrapper">
-
+    <div role="navigation">
+        <input type="button" id="logout-btn" name="logout-btn" value="Logout" class="mgmt-btn btn btn-default btn-lg">
+    </div>
+    
+    
 <div class="add-book-background hidden"></div>
-<div class="add-book-dialog hidden">
+<div class="add-book-dialog hidden" role="region">
     <a class="close-btn"></a>
     <h2>Add to Shelf</h2>   
     <form action="#" class="add-book-form" name="add-book-form">
         <label for="book-search" class="input-label">
-            <input type="text" id="book-search" name="book-search" placeholder="search books...">
+            <input type="text" id="book-search" name="book-search" placeholder="search books..." aria-label="book search">
         </label>            
         <button type="submit" class="btn btn-primary btn-md">Find</button>
     </form>    
     <div class="volume-searchresults grid">
     </div>
 </div>
-<div class="book-result-dialog hidden">
+<div class="book-result-dialog hidden" role="region">
     
     <p id="warningInfo"></p>
 </div>
@@ -36,9 +40,9 @@
     <header role="banner" class="jumbotron">
         <h1><span class="fa fa-book"></span> Shelf</h1> 
         <p>Record your reads</p><br>
-        <input type="button" id="add-book-btn" name="add-book-btn" value="Add books to Shelf" class="btn btn-light btn-lg">  
-        <input type="button" id="refresh-token-btn" name="refresh-token-btn" value="Refresh token" class="btn btn-light btn-lg">
-        <input type="button" id="logout-btn" name="logout-btn" value="Logout" class="btn btn-light btn-lg">
+        <!--<p id="access-token"></p>-->
+        <input type="button" id="add-book-btn" name="add-book-btn" value="Add book" class="btn btn-primary btn-lg"><br>
+        <!--<input type="button" id="refresh-token-btn" name="refresh-token-btn" value="Refresh access token" class="btn btn-default btn-lg">-->
     </header>
     
     <main role="main">
