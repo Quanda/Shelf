@@ -14,7 +14,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 
-describe('Shelf', function() {
+describe('Shelf views', function() {
 
   // Before our tests run, we activate the server. Our `runServer`
   // function returns a promise, and we return the that promise by

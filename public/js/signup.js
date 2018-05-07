@@ -42,6 +42,6 @@ function registerUser(user) {
     .fail(function (err) {
         console.log(err);
         $('.proceed-btn').addClass('hidden');
-        $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.location.toUpperCase()} ${err.responseJSON.message}`);
+        $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.message}`);
     })
 }
