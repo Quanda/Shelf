@@ -75,6 +75,9 @@ Must supply valid JWT via Bearer Authentication <br>
 
 ## Screenshots
 [Splash page](https://postimg.cc/image/vk18ugngl/)
+
 [Shelf Homepage](https://postimg.cc/image/spy3h18fp/)
+
 [Add Book page](https://postimg.cc/image/spy3h0t05/)
+
 [Screen showing book data with update rating and delete book functionality](https://postimg.cc/image/dtzk9fpb9/)
