@@ -8,7 +8,13 @@ Thinkful captone project. Users can register an account and begin managing books
 * Delete Delete books from shelf
 
 ## Build with
-NodeJS, ExpressJS, MongoDB, MongooseJS, PassportJS, ES6, ... See package.json for more
+* NodeJS
+* ExpressJS
+* MongoDB
+* MongooseJS
+* PassportJS
+* ES6
+* See package.json for more
 
 ## APIs and Libraries
 [Google Books API](https://developers.google.com/books/docs/v1/using) <br>
