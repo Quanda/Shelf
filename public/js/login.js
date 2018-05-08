@@ -1,4 +1,4 @@
-
+// authenticate user after login form is submitted
 $('.login-form').submit(function(event) {
     event.preventDefault();
     
@@ -8,6 +8,7 @@ $('.login-form').submit(function(event) {
     authenticateUser();
 })
 
+// redirect to homepage after proceed form is submitted
 $('.proceed-form').submit(function(event) {  
     event.preventDefault();
     
@@ -18,24 +19,4 @@ $('.proceed-form').submit(function(event) {
     window.location.replace("/home.html");
 })
 
-function authenticateUser() {
-    $.ajax({
-       url: '/api/auth/login',
-       type: 'POST',
-       data: {username: $('#username').val(), password: $('#password').val()},
-       dataType: 'JSON'
-    })
-    .done(function( data ) {
-        sessionStorage.setItem('token', data.token);
-        
-        $('.auth-warning').removeClass('warning-on').text('');
-        $('.proceed-btn').removeClass('hidden');
-        $('.login-btn').addClass('hidden');
-    })
-    .fail(function (err) {
-        console.log(err);
-        $('.proceed-btn').addClass('hidden');
-        $('.auth-warning').addClass('warning-on').text(`${err.responseText}`);
-    })
-}
 

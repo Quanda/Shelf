@@ -20,8 +20,6 @@ router.get('/books', jwtAuth, (req, res) => {
     // return users books
     return User.findOne({username}, 'books', function(err, books) {
         if (err) console.error(err);
-        console.log('returning books...');
-        console.log(books)
         return res.json(books);
     })
 });
@@ -35,19 +33,17 @@ router.get('/books/:isbn', jwtAuth, (req, res) => {
     // return single user book
     const book = User.findOne( { username },  {"books": { $elemMatch: { isbn }}} )
     .then( function(data) {
-        console.log(data.books[0]);
         res.json(data.books[0]);
     })
     
 });
 
-// A protected endpoint which needs a valid JWT to access it
 // Add book to user shelf
+// A protected endpoint which needs a valid JWT to access it
 router.post('/books', jwtAuth, jsonParser, (req, res) => {
     const username = req.user.username;
     const newBook = req.body;
     const isbn = req.body.isbn;
-    console.log(`isbn is ${isbn}`);
 
       // create and return user book
       return User.update( {username}, {$push: { 'books': newBook }} )
@@ -68,7 +64,6 @@ router.delete('/books/:isbn', jwtAuth, (req, res) => {
     // delete book from db
     return User.update( {username}, {$pull: { 'books': { isbn: isbn } } } )
      .then( function(data) {
-        console.log(data);
         if(data.nModified > 0) {
            return res.sendStatus(204);
         }
@@ -89,7 +84,6 @@ router.put('/books/:isbn/:rating', jwtAuth, jsonParser, (req, res) => {
     const new_rating = req.params.rating;
     const username = req.user.username;
     
-    console.log(new_rating);
     let user_id;
 
     User.find( { username } )
