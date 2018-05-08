@@ -74,14 +74,7 @@ Must supply valid JWT via Bearer Authentication <br>
 [LIVE DEMO]()
 
 ## Screenshots
-### Splash Page
-[Screen_Shot_2018-05-07_at_11.34.48_PM.png](https://postimg.cc/image/vk18ugngl/)
-
-### Shelf Homepage
-[Screen_Shot_2018-05-07_at_11.34.22_PM.png](https://postimg.cc/image/spy3h18fp/)
-
-### Add book screen
-[Screen_Shot_2018-05-07_at_11.29.51_PM.png](https://postimg.cc/image/spy3h0t05/)
-
-### Screen showing book data with update rating and delete book functionality 
-[Screen_Shot_2018-05-07_at_11.34.36_PM.png](https://postimg.cc/image/dtzk9fpb9/)
+[Splash page](https://postimg.cc/image/vk18ugngl/)
+[Shelf Homepage](https://postimg.cc/image/spy3h18fp/)
+[Add Book page](https://postimg.cc/image/spy3h0t05/)
+[Screen showing book data with update rating and delete book functionality](https://postimg.cc/image/dtzk9fpb9/)
