@@ -33,3 +33,18 @@ function searchSingleVolume(id, callback) {
         console.error(err);
     })
 };
+
+
+function getRandomBook(searchTerm, callback) {
+   $.ajax( {
+        url: `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`,
+        dataType: 'json', 
+        data: {}
+    })
+    .done(function( data ) {
+        callback(data);
+    })
+    .fail(function (err) {
+        console.error(err);
+    }) 
+}

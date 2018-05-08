@@ -28,8 +28,6 @@ const UserSchema = mongoose.Schema({
   books: [BookSchema]
 });
 
-
-
 UserSchema.methods.serialize = function() {
   return {
     username: this.username || '',

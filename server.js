@@ -60,10 +60,10 @@ app.use('*', (req, res) => {
 let server;
 
 // this function starts our server and returns a Promise.
-function runServer() {
+function runServer(databaseUrl, port = PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, err => {
-        console.log(DATABASE_URL);
+    mongoose.connect(databaseUrl, err => {
+        console.log(databaseUrl);
         if(err) {
             return reject(err);
         }
