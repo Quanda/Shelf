@@ -45,6 +45,7 @@ describe('Auth endpoints', function () {
       return chai
         .request(app)
         .post('/api/auth/login')
+        .send({})
         .then((res) => {
           expect(res).to.have.status(400);
         })
