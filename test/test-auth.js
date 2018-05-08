@@ -74,7 +74,7 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/api/auth/login')
         .send({ username, password: 'wrongPassword' })
-        .then(() => {
+        .then((res) => {
           expect(res).to.have.status(401);
         })
         .catch(err => {
