@@ -68,12 +68,14 @@ Must supply valid JWT via Bearer Authentication <br>
 [LIVE DEMO]()
 
 ## Screenshots
-### Landing Page
-[![Screen_Shot_2018-03-07_at_9.18.46_PM.png](https://s10.postimg.org/6bou1hk7t/Screen_Shot_2018-03-07_at_9.18.46_PM.png)](https://postimg.org/image/td5f78jv9/)
+### Splash Page
+[Screen_Shot_2018-05-07_at_11.34.48_PM.png](https://postimg.cc/image/vk18ugngl/)
 
-### Park Search
-[![Screen_Shot_2018-03-07_at_9.21.52_PM.png](https://s10.postimg.org/aktk3oq21/Screen_Shot_2018-03-07_at_9.21.52_PM.png)](https://postimg.org/image/ptjhhgjqd/)
+### Shelf Homepage
+[Screen_Shot_2018-05-07_at_11.34.22_PM.png](https://postimg.cc/image/spy3h18fp/)
 
-### Interactive Map
-[![Screen_Shot_2018-03-07_at_9.21.59_PM.png](https://s10.postimg.org/cpdx4rjyx/Screen_Shot_2018-03-07_at_9.21.59_PM.png)](https://postimg.org/image/etya5ullh/)
+### Add book screen
+[Screen_Shot_2018-05-07_at_11.29.51_PM.png](https://postimg.cc/image/spy3h0t05/)
 
+### Screen showing book data with update rating and delete book functionality 
+[Screen_Shot_2018-05-07_at_11.34.36_PM.png](https://postimg.cc/image/dtzk9fpb9/)
