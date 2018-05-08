@@ -2,10 +2,10 @@
 
 ## Summary
 Thinkful captone project. Users can register an account and begin managing books on their shelf. Supports basic CRUD operations. Users can:
-⋅⋅*(Create) Add books to shelf
-⋅⋅*(Read) Get information about books from their shelf
-⋅⋅*(Update) Update their rating for books on their Shelf
-⋅⋅*(Delete) Delete books from shelf
+*(Create) Add books to shelf
+*(Read) Get information about books from their shelf
+*(Update) Update their rating for books on their Shelf
+*(Delete) Delete books from shelf
 
 ## Build with
 NodeJS, ExpressJS, MongoDB, MongooseJS, PassportJS, ES6, ... See package.json for more
@@ -16,9 +16,9 @@ NodeJS, ExpressJS, MongoDB, MongooseJS, PassportJS, ES6, ... See package.json fo
 [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) <br>
 
 ## Features
-⋅⋅*Local authentication and JSON Web Token
-⋅⋅*Finds books with the Google Books API 
-⋅⋅*
+*Local authentication and JSON Web Token
+*Finds books with the Google Books API 
+*
 
 ## Routes
 
