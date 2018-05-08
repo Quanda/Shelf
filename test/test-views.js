@@ -1,6 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
+const { TEST_DATABASE_URL, PORT } = require('../config');
+
 const {app, runServer, closeServer} = require('../server.js');
 
 // this lets us use *expect* style syntax in our tests
@@ -22,7 +24,7 @@ describe('Shelf views', function() {
   // there's a possibility of a race condition where our tests start
   // running before our server has started.
   before(function() {
-    return runServer();
+    return runServer(TEST_DATABASE_URL);
   });
 
   after(function() {

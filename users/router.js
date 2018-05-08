@@ -38,8 +38,8 @@ router.get('/books/:isbn', jwtAuth, (req, res) => {
     
 });
 
-// A protected endpoint which needs a valid JWT to access it
 // Add book to user shelf
+// A protected endpoint which needs a valid JWT to access it
 router.post('/books', jwtAuth, jsonParser, (req, res) => {
     const username = req.user.username;
     const newBook = req.body;

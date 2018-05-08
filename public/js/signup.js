@@ -20,28 +20,10 @@ $('.signup-form').submit(function(event) {
     registerUser(user);
 })
 
+// handle user submitting proceed form after successful signup
 $('.proceed-form').submit(function(event) {  
     event.preventDefault();
     
     // render login page
     window.location.replace("/login.html")
 })
-
-function registerUser(user) {
-    $.ajax({
-       url: '/api/users',
-       type: 'POST',
-       data: JSON.stringify(user),
-       contentType: 'application/json',
-       dataType: 'JSON'
-    })
-    .done(function( data ) {
-        $('.auth-warning').removeClass('warning-on').text('');
-        $('.proceed-btn').removeClass('hidden');
-    })
-    .fail(function (err) {
-        console.log(err);
-        $('.proceed-btn').addClass('hidden');
-        $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.message}`);
-    })
-}
