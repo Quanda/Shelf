@@ -2,13 +2,13 @@
 https://desolate-forest-17713.herokuapp.com/
 
 ## Summary
-Thinkful captone project. Users can register an account and begin managing books on their shelf. Supports basic CRUD operations. Users can:
+Thinkful captone project. Users can register an account and begin managing books on their digital shelf. Supports basic CRUD operations. Users can:
 * Create - Add books to shelf
-* Read Get information about books from their shelf
-* Update Update their rating for books on their Shelf
-* Delete Delete books from shelf
+* Read - Get information about books from their shelf 
+* Update - Update their rating for books on their Shelf
+* Delete - Delete books from shelf
 
-## Build with
+## Built with
 * NodeJS
 * ExpressJS
 * MongoDB
@@ -24,7 +24,7 @@ Thinkful captone project. Users can register an account and begin managing books
 
 ## Features
 * JSON Web Token (JWT) authentication supports registration and sign on
-* Manage User shelf directly using the API endpoints
+* Manage User shelf either through the client UI or programatically via API endpoints
 
 ## Using the API
 
@@ -70,9 +70,6 @@ Must supply valid JWT via Bearer Authentication <br>
 This endpoint deletes a single book from user Shelf <br>
 Supply ISBN as route parameter <br>
 Must supply valid JWT via Bearer Authentication <br>
-
-## DEMO
-[LIVE DEMO]()
 
 ## Screenshots
 [Splash page](https://postimg.cc/image/vk18ugngl/)
