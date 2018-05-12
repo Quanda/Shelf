@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color: #eee">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
     <link type="text/css" rel="stylesheet" href="./main.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Shelf signup</title>
 </head>
 <body>
@@ -13,22 +14,22 @@
         <input type="button" id="back-btn" name="back-btn" value="Back" class="mgmt-btn btn btn-light btn-lg" onclick="window.location='/index.html'" aria-label="Back">
     </div>
 
-    <div class="wrapper jumbotron">
+    <div class="wrapper">
 
         <header role="banner">
-            <h1>Signup</h1>
+            <h1><span class="fa fa-book"></span> Signup</h1>
         </header>
 
         <main role="main">
             <form action="#" class="signup-form" name="signup-form">
                 <label for="fullname" class="input-label">
-                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" autocomplete="Name" aria-label="fullname">
+                    <input type="text" class="form-control form-control-lg" id="fullname" name="fullname" placeholder="Full Name" autocomplete="Name" aria-label="fullname">
                 </label><br>
                 <label for="username" class="input-label">
-                    <input type="text" id="username" name="username" placeholder="Username" aria-label="username">
+                    <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Username" aria-label="username">
                 </label><br>
                 <label for="password" class="input-label">
-                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password>" aria-label="password">
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" autocomplete="current-password>" aria-label="password">
                 </label><br>
                 <button type="submit" class="btn btn-light btn-lg signup-btn">Submit</button>
                 <p class="auth-warning"></p >
