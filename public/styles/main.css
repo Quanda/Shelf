@@ -64,6 +64,10 @@ header p {
     position: absolute;
     right: 10px
 }
+.logout-btn {
+    margin: 50px 0px 20px 0px
+}
+
 .add-book-background {
     background-color: #000000bd;
     position: fixed;
