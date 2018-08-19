@@ -111,7 +111,9 @@ function authenticateUser() {
         sessionStorage.setItem('token', data.token);
         $('.auth-warning').removeClass('warning-on').text('');
         $('.login-btn').addClass('hidden');
+
         getUserBooks(updateSessionStorageWithBooks);
+        
         window.location.replace("/home.html");
     })
     .fail(function (err) {
