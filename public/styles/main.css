@@ -23,7 +23,6 @@ body {
     left: 0;
     right: 0;
     z-index: 0;
-    
 }
 
 header {
@@ -105,6 +104,21 @@ header p {
     padding: 10px 30px 10px 30px; 
 }
 
+.stand-out {
+    color: #fbf539;
+    font-weight: 900;
+}
+.italic {
+    font-style: italic;
+}
+
+.bottom-fix {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0
+}
+
 .add-book-form {
     margin: 25px;
 }
@@ -119,13 +133,10 @@ header p {
 .warning-on {
     margin-top: 15px;
     text-align: center;
-    color: white;
-    background-color: #ec0202;
+    color: #ec0202;
+    background-color: #fff;
     font-weight: bold;
     font-size: 22px;
-}
-.proceed-btn {
-    font-size: 28px !important;
 }
 
 .update-rating-form {

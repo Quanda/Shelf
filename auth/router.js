@@ -24,6 +24,8 @@ router.use(bodyParser.urlencoded({
 }));
 
 // The user provides a username and password to login
+// Runs through localAuth middleware to handle authentication
+// If auth successful, creates and responds with a JWT 
 router.post('/login', localAuth, (req, res) => {
   console.log('authenticated user');
   const authToken = createAuthToken(req.user.serialize());

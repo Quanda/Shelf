@@ -110,12 +110,14 @@ function authenticateUser() {
     .done(function( data ) {
         sessionStorage.setItem('token', data.token);
         $('.auth-warning').removeClass('warning-on').text('');
-        $('.proceed-btn').removeClass('hidden');
         $('.login-btn').addClass('hidden');
+
+        getUserBooks(updateSessionStorageWithBooks);
+
+        window.location.replace("/home.html");
     })
     .fail(function (err) {
         console.log(err);
-        $('.proceed-btn').addClass('hidden');
         $('.auth-warning').addClass('warning-on').text(`${err.responseText}`);
     })
 }
@@ -131,11 +133,9 @@ function registerUser(user) {
     })
     .done(function( data ) {
         $('.auth-warning').removeClass('warning-on').text('');
-        $('.proceed-btn').removeClass('hidden');
     })
     .fail(function (err) {
         console.log(err);
-        $('.proceed-btn').addClass('hidden');
         $('.auth-warning').addClass('warning-on').text(`${err.responseJSON.location}: ${err.responseJSON.message}`);
     })
 }

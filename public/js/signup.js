@@ -19,11 +19,3 @@ $('.signup-form').submit(function(event) {
     // call api to register user
     registerUser(user);
 })
-
-// handle user submitting proceed form after successful signup
-$('.proceed-form').submit(function(event) {  
-    event.preventDefault();
-    
-    // render login page
-    window.location.replace("/login.html")
-})
