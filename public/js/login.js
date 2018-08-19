@@ -5,5 +5,4 @@ $('.login-form').submit(function(event) {
         
     // get and set jwt to sessionStorage
     authenticateUser();
-})
-
+});
