@@ -113,7 +113,7 @@ function authenticateUser() {
         $('.login-btn').addClass('hidden');
 
         getUserBooks(updateSessionStorageWithBooks);
-        
+
         window.location.replace("/home.html");
     })
     .fail(function (err) {
