@@ -133,6 +133,10 @@ function registerUser(user) {
     })
     .done(function( data ) {
         $('.auth-warning').removeClass('warning-on').text('');
+
+        getUserBooks(updateSessionStorageWithBooks);
+        
+        window.location.replace("/home.html");
     })
     .fail(function (err) {
         console.log(err);
