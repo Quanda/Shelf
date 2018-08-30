@@ -1,8 +1,8 @@
 # Shelf
-https://desolate-forest-17713.herokuapp.com/
+https://shelf-app.herokuapp.com/
 
 ## Summary
-Thinkful captone project. Users can register an account and begin managing books on their digital shelf. Supports basic CRUD operations. Users can:
+Users can register an account and begin managing books on their digital shelf. Supports basic CRUD operations. Users can:
 * Create - Add books to shelf
 * Read - Get information about books from their shelf 
 * Update - Update their rating for books on their Shelf
