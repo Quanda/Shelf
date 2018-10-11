@@ -21,10 +21,10 @@ const BookSchema = mongoose.Schema({
 });
 
 const UserSchema = mongoose.Schema({
-  firstName: {type: String, default: ''},
-  lastName: {type: String, default: ''},
-  username: { type: String, required: true, unique: true},
-  password: { type: String, required: true},
+  firstName: { type: String, default: '' },
+  lastName: { type: String, default: '' },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   books: [BookSchema]
 });
 
@@ -37,8 +37,6 @@ UserSchema.methods.serialize = function() {
 };
 
 UserSchema.methods.validatePassword = function(password) {
-    console.log(this.password);
-    console.log(password);
   return bcrypt.compare(password, this.password);
 };
 
