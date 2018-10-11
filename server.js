@@ -13,6 +13,9 @@ mongoose.Promise = global.Promise;
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
+// load findBook router
+const { router: findbookRouter } = require('./findbook/router');
+
 // load config
 const { PORT, DATABASE_URL } = require('./config');
 
@@ -21,8 +24,6 @@ const app = express();
 
 // logging
 app.use(morgan('common'));
-
-//app.set('view engine', 'ejs');
 
 // CORS
 app.use(function (req, res, next) {
@@ -44,14 +45,14 @@ app.use(express.static('public/js'));
 app.use(express.static('public/styles'));
 app.use(express.static('public/images'));
 
-
+app.use('/api/findbook/', findbookRouter);
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Aint nothin here' });
+  return res.status(404).json({ message: 'Nothing found here' });
 });
 
 // both runServer and closeServer need to access the same
@@ -61,16 +62,14 @@ let server;
 
 // this function starts our server and returns a Promise.
 function runServer(databaseUrl = DATABASE_URL, port = PORT) {
-  console.log(`db url: ${databaseUrl}`);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
-        console.log(databaseUrl);
         if(err) {
             return reject(err);
         }
     })
     server = app.listen(PORT, () => {
-      console.log(`Your app is listening on port ${PORT}`);
+      console.log(`Shelf app is listening on port ${PORT}`);
       resolve();
     }).on('error', err => {
       mongoose.disconnect();
@@ -101,6 +100,5 @@ function closeServer() {
 if (require.main === module) {
   runServer(DATABASE_URL).catch(err => console.error(err));
 };
-
 
 module.exports = {app, runServer, closeServer};

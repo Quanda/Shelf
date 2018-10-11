@@ -249,6 +249,7 @@ $(function() { // on ready
 
         getUserBooks(updateSessionStorageWithBooks);
         getBooksFromSessionStorage(renderBooks)
+        window.location.replace("/home.html")
     }
 
     
