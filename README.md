@@ -2,7 +2,7 @@
 [UI Application](https://shelf-app.herokuapp.com/)
 
 ## Summary
-Shelf is an application from which users can manage a personal digital bookshelf. Shelf can be used either using the client application (UI) or the API.
+Shelf is an application from which users can manage a personal digital bookshelf. Shelf can be used either via the client application (UI) or the API.
 
 ## Features
 * JSON Web Token (JWT) authentication
