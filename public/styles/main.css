@@ -128,8 +128,21 @@ header p {
 }
 
 .result {
-    padding: 20px;
+    padding: 10px;
+    margin: 25px;
+    border-radius: 15px;
+    position: relative;
+    min-height: 360px;
+}
+.result-saved {
+    background-color: #241f1f5c;
     color: white;
+}
+.result-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 .index-nav {
    margin-top: 35px; 
