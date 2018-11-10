@@ -116,8 +116,10 @@ $(function() { // on ready
             let volumeHtml = `
                 <div class="result" id="${volume.id}">
                     <img src="${imageLink}" alt="book image"/>
-                    <p> ${volume.volumeInfo.title}</p>
-                    <p>by ${author}</p>
+                    <div class="result-text">
+                        <p> ${volume.volumeInfo.title}</p>
+                        <p>by ${author}</p>
+                    <div>
                 </div>`
             $('.volume-searchresults').append(volumeHtml);
         })
@@ -166,10 +168,12 @@ $(function() { // on ready
     function renderBooks(books) {
         books.forEach( (book) => {
             let userBook = 
-            `<div class="result" id="${book.isbn}">
+            `<div class="result result-saved" id="${book.isbn}">
                 <img src="${book.image_link}" alt="book image"/>
-                <p><b> ${book.title} </b></p>
-                <p>${book.author}</p>
+                <div class="result-text">
+                    <p><b> ${book.title} </b></p>
+                    <p>${book.author}</p>
+                </div>
             </div>`
 
             $('.user-books').append(userBook);
