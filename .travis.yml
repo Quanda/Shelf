@@ -1,5 +1,7 @@
 language: node_js
 node_js: node
+env:
+  - JWT_SECRET="Quanda41292"
 services:
 - mongodb
 deploy:
