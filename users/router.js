@@ -42,16 +42,15 @@ router.get('/books/:isbn', jwtAuth, (req, res) => {
 router.post('/books', jwtAuth, jsonParser, (req, res) => {
     const username = req.user.username;
     const newBook = req.body;
-    const isbn = req.body.isbn;
 
-      // create and return user book
-      return User.updateOne( {username}, {$push: { 'books': newBook }} )
-        .then( function() {
-          return res.json(newBook);
-        })
-        .catch( err => {
-          return res.status(500).json({message: `Internal server error`})
-        });
+    // create and return user book
+    return User.updateOne( {username}, {$push: { 'books': newBook }} )
+      .then( function() {
+        return res.json(newBook);
+      })
+      .catch( err => {
+        return res.status(500).json({message: `Internal server error`})
+      });
 });
 
 // Delete a single book

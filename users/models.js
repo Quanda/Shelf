@@ -7,11 +7,7 @@ mongoose.Promise = global.Promise;
 const BookSchema = mongoose.Schema({
     title: String,
     author: String,
-    isbn: {
-      type: String,
-      unique: false,
-      sparse: true
-    },
+    isbn: String,
     description: String,
     book_added: Date,
     book_modified: Date,
