@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
   if (req.method === 'OPTIONS') {
-    return res.send(204);
+    return res.sendStatus(204);
   }
   next();
 });
@@ -52,7 +52,7 @@ app.use('/api/auth/', authRouter);
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Nothing found here' });
+  return res.sendStatus(404).json({ message: 'Nothing found here' });
 });
 
 // both runServer and closeServer need to access the same
@@ -63,9 +63,9 @@ let server;
 // this function starts our server and returns a Promise.
 function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err => {
+    mongoose.connect(databaseUrl, { useNewUrlParser: true, useCreateIndex: true }, err => {
         if(err) {
-            return reject(err);
+          return reject(err);
         }
     })
     server = app.listen(PORT, () => {

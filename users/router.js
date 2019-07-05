@@ -16,7 +16,6 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 // A protected endpoint which needs a valid JWT to access it
 router.get('/books', jwtAuth, (req, res) => {
     const username = req.user.username;
-    
     // return users books
     return User.findOne({username}, 'books', function(err, books) {
         if (err) console.error(err);
@@ -46,7 +45,7 @@ router.post('/books', jwtAuth, jsonParser, (req, res) => {
     const isbn = req.body.isbn;
 
       // create and return user book
-      return User.update( {username}, {$push: { 'books': newBook }} )
+      return User.updateOne( {username}, {$push: { 'books': newBook }} )
         .then( function() {
           return res.json(newBook);
         })
@@ -62,7 +61,7 @@ router.delete('/books/:isbn', jwtAuth, (req, res) => {
     const username = req.user.username;
     
     // delete book from db
-    return User.update( {username}, {$pull: { 'books': { isbn: isbn } } } )
+    return User.updateOne( {username}, {$pull: { 'books': { isbn: isbn } } } )
      .then( function(data) {
         if(data.nModified > 0) {
            return res.sendStatus(204);
@@ -93,7 +92,7 @@ router.put('/books/:isbn/:rating', jwtAuth, jsonParser, (req, res) => {
         let query = { _id: user_id, books: { $elemMatch: { isbn } } };
         let update = { "books.$.rating_user": new_rating}
 
-        return User.update( query, {$set: update })
+        return User.updateOne( query, {$set: update })
          .then( function(data) {
             res.json(data);
         }) 
