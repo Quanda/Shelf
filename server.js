@@ -28,7 +28,7 @@ app.use(morgan('common'));
 // CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, X-Requested-With, Origin');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
   if (req.method === 'OPTIONS') {
     return res.sendStatus(204);
@@ -38,12 +38,6 @@ app.use(function (req, res, next) {
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
-
-// serve static assets from public folder
-app.use(express.static('public/views'));
-app.use(express.static('public/js'));
-app.use(express.static('public/styles'));
-app.use(express.static('public/images'));
 
 app.use('/api/findbook/', findbookRouter);
 app.use('/api/users/', usersRouter);

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const { app, runServer, closeServer } = require('../server');
 const { User } = require('../users');
-const { JWT_SECRET, TEST_DATABASE_URL, PORT } = require('../config');
+const { TEST_DATABASE_URL, PORT } = require('../config');
 
 const expect = chai.expect;
 
@@ -93,7 +93,7 @@ describe('Auth endpoints', function () {
           expect(res.body).to.be.an('object');
           const token = res.body.token;
           expect(token).to.be.a('string');
-          const payload = jwt.verify(token, JWT_SECRET, {
+          const payload = jwt.verify(token, process.env.JWT_SECRET, {
             algorithm: ['HS256']
           });
           expect(payload.user).to.deep.equal({
@@ -158,7 +158,7 @@ describe('Auth endpoints', function () {
           },
           exp: Math.floor(Date.now() / 1000) - 10 // Expired ten seconds ago
         },
-        JWT_SECRET,
+        process.env.JWT_SECRET,
         {
           algorithm: 'HS256',
           subject: username
@@ -188,7 +188,7 @@ describe('Auth endpoints', function () {
             lastName
           }
         },
-        JWT_SECRET,
+        process.env.JWT_SECRET,
         {
           algorithm: 'HS256',
           subject: username,
@@ -206,7 +206,7 @@ describe('Auth endpoints', function () {
           expect(res.body).to.be.an('object');
           const token = res.body.authToken;
           expect(token).to.be.a('string');
-          const payload = jwt.verify(token, JWT_SECRET, {
+          const payload = jwt.verify(token, process.env.JWT_SECRET, {
             algorithm: ['HS256']
           });
           expect(payload.user).to.deep.equal({

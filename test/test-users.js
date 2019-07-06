@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 
 const {app, runServer, closeServer} = require('../server.js');
 const { User } = require('../users');
-const { JWT_SECRET, TEST_DATABASE_URL, PORT } = require('../config');
+const { TEST_DATABASE_URL, PORT } = require('../config');
 
 const expect = chai.expect;
 const faker = require('faker');
@@ -206,7 +206,7 @@ chai.use(chaiHttp);
               expect(res.body).to.be.an('object');
               token = res.body.token;
               expect(token).to.be.a('string');
-              const payload = jwt.verify(token, JWT_SECRET, {
+              const payload = jwt.verify(token, process.env.JWT_SECRET, {
                 algorithm: ['HS256']
               });
             })

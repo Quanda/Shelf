@@ -3,12 +3,11 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const GOOGLE_API_KEY = "AIzaSyAOmOmwmXQXzBOvc2Cu7kEjZIkZMwvXPBQ";
 
 // Return top 5 search results
 router.get('/:searchStr', async (req, res) => {
     try {
-        const initResults = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.searchStr}&projection=lite&key=${GOOGLE_API_KEY}&maxResults=5`);
+        const initResults = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.searchStr}&projection=lite&key=${process.env.GOOGLE_API_KEY}&maxResults=5`);
         const items = initResults.data.items;
         let volumes = [];
         for (let i=0; i<items.length; i++ ) {
