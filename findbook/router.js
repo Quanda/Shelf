@@ -7,7 +7,7 @@ const router = express.Router();
 // Return top 5 search results
 router.get('/:searchStr', async (req, res) => {
     try {
-        const initResults = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.searchStr}&projection=lite&key=${process.env.GOOGLE_API_KEY}&maxResults=5`);
+        const initResults = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.searchStr}&projection=lite&key=${process.env.GOOGLE_API_KEY}&maxResults=10`);
         const items = initResults.data.items;
         let volumes = [];
         for (let i=0; i<items.length; i++ ) {
@@ -26,6 +26,7 @@ router.get('/:searchStr', async (req, res) => {
 
     } catch (e) {
         console.error(e);
+        return res.status(e.code).json(e.message);
     }
 });
 
