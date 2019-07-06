@@ -13,9 +13,10 @@ router.get('/:searchStr', async (req, res) => {
         for (let i=0; i<items.length; i++ ) {
             const book = items[i];
             const details = await axios.get(book.selfLink);
+            let isbn;
             const { industryIdentifiers } = details.data.volumeInfo;
             if (industryIdentifiers) {
-                const isbn = industryIdentifiers.find(i=>i.type === 'ISBN_13').identifier;
+                isbn = industryIdentifiers.find(i=>i.type === 'ISBN_13').identifier;
             } else {
                 isbn = book.id;
             }
