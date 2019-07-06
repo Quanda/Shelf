@@ -1,7 +1,7 @@
 {
   "name": "shelf",
   "version": "1.0.0",
-  "description": "thinkful capstone",
+  "description": "API supporting Shelf App",
   "main": "server.js",
   "scripts": {
     "test": "mocha --exit",
