@@ -1,8 +1,10 @@
-# Shelf
-[UI Application](https://shelf-app.herokuapp.com/)
+# Shelf API
 
 ## Summary
-Shelf is an application from which users can manage a personal digital bookshelf. Shelf can be used either via the client application (UI) or the API.
+The Shelf API is the backend service supporting the Shelf appliction, which enables users to manage a personal digital bookshelf. For information related to the client application, see [Shelf App](https://github.com/Quanda/shelf-app).
+
+## Using the Shelf API
+For detailed information on how to use the API, please refer to [the docs](https://quanda.github.io/shelf-docs/#introduction)
 
 ## Features
 * JSON Web Token (JWT) authentication
@@ -19,10 +21,5 @@ Shelf is an application from which users can manage a personal digital bookshelf
 * ES6
 * See package.json for more
 
-## Leveraged APIs and Libraries
+## Third Party APIs
 [Google Books API](https://developers.google.com/books/docs/v1/using) <br>
-[JQuery](https://api.jquery.com/) <br>
-[Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) <br>
-
-## Using the Shelf API
-For detailed information on how to use the API, please refer to [the docs](https://quanda.github.io/shelf-docs/#introduction)
