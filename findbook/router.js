@@ -13,12 +13,17 @@ router.get('/:searchStr', async (req, res) => {
         for (let i=0; i<items.length; i++ ) {
             const book = items[i];
             const details = await axios.get(book.selfLink);
-            const isbn_13 = details.data.volumeInfo.industryIdentifiers.find(i=>i.type === 'ISBN_13').identifier;
+            const { industryIdentifiers } = details.data.volumeInfo;
+            if (industryIdentifiers) {
+                const isbn = industryIdentifiers.find(i=>i.type === 'ISBN_13').identifier;
+            } else {
+                isbn = book.id;
+            }
             const volume = {
                 id: book.id,
                 selfLink: book.selfLink,
                 volumeInfo: book.volumeInfo,
-                isbn: isbn_13
+                isbn: isbn
             }
             volumes.push(volume);
         }
@@ -26,7 +31,7 @@ router.get('/:searchStr', async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        return res.status(e.code).json(e.message);
+        return res.sendStatus(500);
     }
 });
 
