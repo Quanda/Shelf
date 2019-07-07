@@ -13,7 +13,8 @@ const BookSchema = mongoose.Schema({
     book_modified: Date,
     image_link: String,
     rating_user: Number,
-    rating_avg: Number
+    rating_avg: Number,
+    shelf_type: String, // Library, Active, WishList
 });
 
 const UserSchema = mongoose.Schema({
