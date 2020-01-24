@@ -14,16 +14,32 @@ router.get('/:searchStr', async (req, res) => {
             const book = items[i];
             const details = await axios.get(book.selfLink);
             let isbn;
-            const { industryIdentifiers } = details.data.volumeInfo;
+            const { industryIdentifiers, imageLinks } = details.data.volumeInfo;
             if (industryIdentifiers) {
                 isbn = industryIdentifiers.find(i=>i.type === 'ISBN_13').identifier;
             } else {
                 isbn = book.id;
             }
+
+            let secureImgLinks = {};
+            if (imageLinks) {
+                // Convert any http imgLinks to https
+                Object.keys(imageLinks).forEach(key => {
+                    if (imageLinks[key].startsWith('http')) {
+                        secureImgLinks[key] = imageLinks[key].replace('http', 'https');
+                    } else {
+                        secureImgLinks[key] = imageLinks[key];
+                    }
+                });
+            }
+
             const volume = {
                 id: book.id,
                 selfLink: book.selfLink,
-                volumeInfo: book.volumeInfo,
+                volumeInfo: {
+                    ...book.volumeInfo,
+                    imageLinks: secureImgLinks,
+                },
                 isbn: isbn
             }
             volumes.push(volume);
