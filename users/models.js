@@ -12,9 +12,8 @@ const BookSchema = mongoose.Schema({
     book_added: Date,
     book_modified: Date,
     image_link: String,
-    rating_user: Number,
-    rating_avg: Number,
-    shelf_type: String, // Library, Active, WishList
+    shelf_type: String,
+    book_status: { type: String, required: true, default: 'Active', enum: ['Active', 'Finished', 'Next Up']},
 });
 
 const UserSchema = mongoose.Schema({

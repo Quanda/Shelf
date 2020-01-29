@@ -2,14 +2,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const path = require('path');
-
 const { User } = require('./models');
 
 const router = express.Router();
-
 const jsonParser = bodyParser.json();
-
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 // Get all books
@@ -17,7 +13,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 router.get('/books', jwtAuth, (req, res) => {
     const username = req.user.username;
     // return users books
-    return User.findOne({username}, 'books', function(err, books) {
+    return User.findOne({ username }, 'books', function(err, books) {
         if (err) console.error(err);
         return res.json(books);
     })
@@ -30,11 +26,8 @@ router.get('/books/:isbn', jwtAuth, (req, res) => {
     const username = req.user.username;
     
     // return single user book
-    const book = User.findOne( { username },  {"books": { $elemMatch: { isbn }}} )
-    .then( function(data) {
-        res.json(data.books[0]);
-    })
-    
+    return User.findOne({ username },  {"books": { $elemMatch: { isbn }}})
+      .then( data => res.json(data.books[0]))
 });
 
 // Add book to user shelf
@@ -42,15 +35,24 @@ router.get('/books/:isbn', jwtAuth, (req, res) => {
 router.post('/books', jwtAuth, jsonParser, (req, res) => {
     const username = req.user.username;
     const newBook = req.body;
+    const { isbn } = newBook;
 
-    // create and return user book
-    return User.updateOne( {username}, {$push: { 'books': newBook }} )
-      .then( function() {
-        return res.json(newBook);
+    return User.findOne({ username },  {"books": { $elemMatch: { isbn }}})
+      .then(data => {
+        const { length } = data.books;
+        // if book does not yet exist, add it
+        if (length === 0) {
+        return User.updateOne( { username }, { $push: {"books": newBook }})
+          .then( function() {
+            return res.json(newBook);
+          })
+          .catch( err => {
+            return res.status(500).json({message: `Internal server error`})
+          });
+        } else {
+          return res.status(409).json({message: 'Book already exists'})
+        }
       })
-      .catch( err => {
-        return res.status(500).json({message: `Internal server error`})
-      });
 });
 
 // Delete a single book
@@ -75,29 +77,24 @@ router.delete('/books/:isbn', jwtAuth, (req, res) => {
 
 });
 
-// Update user rating
+// Update Book status (Active, Complete, Next)
 // A protected endpoint which needs a valid JWT to access it
-router.put('/books/:isbn/:rating', jwtAuth, jsonParser, (req, res) => {
-    const isbn = req.params.isbn;
-    const new_rating = req.params.rating;
+router.put('/books/:isbn/:status', jwtAuth, jsonParser, (req, res) => {
     const username = req.user.username;
+    const isbn = req.params.isbn;
+    const { status } = req.params;
     
     let user_id;
-
     User.find( { username } )
-    .then( function(data) {
-        user_id = data[0]._id
+    .then( data => {
+      user_id = data[0]._id
         
-        let query = { _id: user_id, books: { $elemMatch: { isbn } } };
-        let update = { "books.$.rating_user": new_rating}
+      let query = { _id: user_id, books: { $elemMatch: { isbn } } };
+      let update = { "books.$.book_status": status}
 
-        return User.updateOne( query, {$set: update })
-         .then( function(data) {
-            res.json(data);
-        }) 
-         .catch( err => {
-           return res.status(500).json({message: `Internal server error`});
-         });
+      return User.updateOne( query, {$set: update }, {runValidators: true})
+        .then(data => res.json(data))
+        .catch(err => res.status(500).json({ message: err.message }));
     })
 });
 
