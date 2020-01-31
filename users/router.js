@@ -11,9 +11,9 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 // Get all books
 // A protected endpoint which needs a valid JWT to access it
 router.get('/books', jwtAuth, (req, res) => {
-    const username = req.user.username;
+    const { email } = req.user;
     // return users books
-    return User.findOne({ username }, 'books', function(err, books) {
+    return User.findOne({ email }, 'books', function(err, books) {
         if (err) console.error(err);
         return res.json(books);
     })
@@ -23,34 +23,34 @@ router.get('/books', jwtAuth, (req, res) => {
 // A protected endpoint which needs a valid JWT to access it
 router.get('/books/:isbn', jwtAuth, (req, res) => {
     const isbn = req.params.isbn;
-    const username = req.user.username;
+    const { email } = req.user;
     
     // return single user book
-    return User.findOne({ username },  {"books": { $elemMatch: { isbn }}})
+    return User.findOne({ email },  {"books": { $elemMatch: { isbn }}})
       .then( data => res.json(data.books[0]))
 });
 
 // Add book to user shelf
 // A protected endpoint which needs a valid JWT to access it
 router.post('/books', jwtAuth, jsonParser, (req, res) => {
-    const username = req.user.username;
+    const { email } = req.user;
     const newBook = req.body;
     const { isbn } = newBook;
 
-    return User.findOne({ username },  {"books": { $elemMatch: { isbn }}})
+    return User.findOne({ email },  {"books": { $elemMatch: { isbn }}})
       .then(data => {
         const { length } = data.books;
         // if book does not yet exist, add it
         if (length === 0) {
-        return User.updateOne( { username }, { $push: {"books": newBook }})
+        return User.updateOne( { email }, { $push: {"books": newBook }})
           .then( function() {
             return res.json(newBook);
           })
           .catch( err => {
-            return res.status(500).json({message: `Internal server error`})
+            return res.status(500).json({ message: `Internal server error` })
           });
         } else {
-          return res.status(409).json({message: 'Book already exists'})
+          return res.status(409).json({ message: 'Book already exists' })
         }
       })
 });
@@ -59,10 +59,10 @@ router.post('/books', jwtAuth, jsonParser, (req, res) => {
 // A protected endpoint which needs a valid JWT to access it
 router.delete('/books/:isbn', jwtAuth, (req, res) => {
     const isbn = req.params.isbn;
-    const username = req.user.username;
+    const { email } = req.user;
     
     // delete book from db
-    return User.updateOne( {username}, {$pull: { 'books': { isbn: isbn } } } )
+    return User.updateOne({ email }, { $pull: { 'books': { isbn: isbn } }})
      .then( function(data) {
         if(data.nModified > 0) {
            return res.sendStatus(204);
@@ -72,7 +72,7 @@ router.delete('/books/:isbn', jwtAuth, (req, res) => {
         }
      })
      .catch( err => {
-       return res.status(500).json({message: `Internal server error`});
+       return res.status(500).json({ message: `Internal server error` });
      });
 
 });
@@ -80,19 +80,19 @@ router.delete('/books/:isbn', jwtAuth, (req, res) => {
 // Update Book status (Active, Complete, Next)
 // A protected endpoint which needs a valid JWT to access it
 router.put('/books/:isbn/:status', jwtAuth, jsonParser, (req, res) => {
-    const username = req.user.username;
+    const { email } = req.user;
     const isbn = req.params.isbn;
     const { status } = req.params;
     
     let user_id;
-    User.find( { username } )
+    User.find( { email } )
     .then( data => {
       user_id = data[0]._id
         
       let query = { _id: user_id, books: { $elemMatch: { isbn } } };
       let update = { "books.$.book_status": status}
 
-      return User.updateOne( query, {$set: update }, {runValidators: true})
+      return User.updateOne(query, { $set: update }, { runValidators: true })
         .then(data => res.json(data))
         .catch(err => res.status(500).json({ message: err.message }));
     })
@@ -100,7 +100,7 @@ router.put('/books/:isbn/:status', jwtAuth, jsonParser, (req, res) => {
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password'];
+  const requiredFields = ['email', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -133,7 +133,7 @@ router.post('/', jsonParser, (req, res) => {
   // trimming them and expecting the user to understand.
   // We'll silently trim the other fields, because they aren't credentials used
   // to log in, so it's less of a problem.
-  const explicityTrimmedFields = ['username', 'password'];
+  const explicityTrimmedFields = ['email', 'username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
@@ -148,9 +148,6 @@ router.post('/', jsonParser, (req, res) => {
   }
 
   const sizedFields = {
-    username: {
-      min: 2
-    },
     password: {
       min: 6,
       // bcrypt truncates after 72 characters, so let's not give the illusion
@@ -182,22 +179,24 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  let {username, password, firstName = '', lastName = ''} = req.body;
+  let { email, username, password, firstName = '', lastName = '' } = req.body;
   // Username and password come in pre-trimmed, otherwise we throw an error
   // before this
+  email = email.trim();
+  username = username.trim();
   firstName = firstName.trim();
   lastName = lastName.trim();
 
-  return User.find({username})
+  return User.find({ email })
     .count()
     .then(count => {
       if (count > 0) {
-        // There is an existing user with the same username
+        // There is an existing user with the same email
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
-          message: 'Username already taken',
-          location: 'username'
+          message: 'Email already taken',
+          location: 'email'
         });
       }
       // If there is no existing user, hash the password
@@ -205,6 +204,7 @@ router.post('/', jsonParser, (req, res) => {
     })
     .then(hash => {
       return User.create({
+        email,
         username,
         password: hash,
         firstName,
@@ -215,12 +215,13 @@ router.post('/', jsonParser, (req, res) => {
       return res.status(201).json(user.serialize());
     })
     .catch(err => {
+      console.log(err);
       // Forward validation errors on to the client, otherwise give a 500
       // error because something unexpected has happened
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
-      res.status(500).json({code: 500, message: 'Internal server error'});
+      res.status(500).json({ code: 500, message: 'Internal server error' });
     });
 });
 

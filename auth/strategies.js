@@ -8,17 +8,19 @@ const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const { User } = require('../users/models');
 
 
-const localStrategy = new LocalStrategy((username, password, callback) => {
-
+const localStrategy = new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+}, (email, password, callback) => {
   let user;
-  User.findOne({ username })
+  User.findOne({ email })
     .then(_user => {
       user = _user;
       if (!user) { 
         // Return a rejected promise so we break out of the chain of .thens.
         return Promise.reject({
           reason: 'LoginError',
-          message: 'Could not find user'
+          message: 'Could not find user with that email'
         }); 
       }
       return user.validatePassword(password);

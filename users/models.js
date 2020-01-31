@@ -19,13 +19,17 @@ const BookSchema = mongoose.Schema({
 const UserSchema = mongoose.Schema({
   firstName: { type: String, default: '' },
   lastName: { type: String, default: '' },
-  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  username: { type: String, required: false },
   password: { type: String, required: true },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
   books: [BookSchema]
 });
 
 UserSchema.methods.serialize = function() {
   return {
+    email: this.email || '',
     username: this.username || '',
     firstName: this.firstName || '',
     lastName: this.lastName || ''
